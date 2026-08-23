@@ -1,3 +1,3 @@
 package org.team4153.core;
 
-public class 
+public class Robot {}

@@ -2,4 +2,5 @@ package org.team4153.core.hardware;
 
 import org.team4153.core.hardware.Hardware;
 
-public interface Radio extends Hardware {}
+/** The radio of a robot. Often used with the RoboRIO. */
+public interface Radio extends Hardware, Input, Output {}
