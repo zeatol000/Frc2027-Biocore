@@ -108,7 +108,8 @@ tasks.withType(JavaCompile) {
     options.compilerArgs.addAll([
 	 	'-XDstringConcat=inline',
 		'-deprecation',
-		'-Werror'
+		'-Werror',
+		"-Xlint:unchecked"
 	 ])
 }
 
