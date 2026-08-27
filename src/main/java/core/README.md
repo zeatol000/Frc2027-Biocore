@@ -17,6 +17,9 @@ And instead use companion classes for the given interface. (Eg. use the
 
 ---
 ## Subpackages
+**auto**:
+Utilities for auto.
+
 **collection**:
 Ever used an `ArrayList`? Thats a collection. It stores multiple values of the
 given type. This package stores other collections. Do note that not all
