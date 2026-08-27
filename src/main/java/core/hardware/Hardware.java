@@ -17,4 +17,9 @@ public interface Hardware {
 	 * Only used in reporting.
 	 */
 	public abstract String NAME();
+
+
+
+	/** All hardware. Please don't touch this */
+	public static final Hardware[] hardware = new Hardware[0x100];
 }
