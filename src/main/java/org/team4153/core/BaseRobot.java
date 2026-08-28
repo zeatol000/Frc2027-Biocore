@@ -1,6 +1,9 @@
 package org.team4153.core;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import org.team4153.core.BaseRobotContainer;
 import org.team4153.core.config.Conf;
@@ -14,7 +17,19 @@ public class BaseRobot extends TimedRobot {
 
 	public BaseRobot(BaseRobotContainer container) {
 		this.container = container;
-		IO.println("hi");
-		IO.println(Conf.config);
+	}
+
+	@Override
+	public void robotPeriodic() {
+		CommandScheduler.getInstance().run();
+	}
+
+	@Override
+	public void autonomousInit() {
+		CommandScheduler
+			.getInstance()
+			.schedule(
+				Commands.print("hi")
+			);
 	}
 }
