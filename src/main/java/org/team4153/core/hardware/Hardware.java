@@ -1,5 +1,12 @@
 package org.team4153.core.hardware;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
+
+import org.team4153.core.config.Conf;
+import org.team4153.core.config.Log;
+import org.team4153.core.hardware.Motor;
+
 /** The [[java.lang.Object]] of hardware
  */
 public interface Hardware {
@@ -20,6 +27,30 @@ public interface Hardware {
 
 
 
-	/** All hardware. Please don't touch this */
-	public static final Hardware[] hardware = new Hardware[0x100];
+	/** All hardware by ids */
+	public static final Hardware[] hardware = new Hardware[Conf.hardwareArraySize];
+
+
+	public static void unsafeMakeHardware(Config cfg) {
+		int id = cfg.getInt("id");
+
+		if (hardware[id] != null) {
+			String msg = "Conflicting hardware IDs: "+id+"\nCannot continue execution!!";
+			Log.error(msg);
+			throw new ConfigException.Generic(msg);
+		}
+
+		String type = cfg.getString("type").toLowerCase();
+
+		Hardware el = switch (type) {
+			case "motor" -> Motor.unsafeMakeMotor(cfg);
+			default -> {
+				String msg = "Unknown hardware type: "+type;
+				Log.error(msg);
+				throw new ConfigException.BadValue("type", msg);
+			}
+		};
+
+		hardware[id] = el;
+	}
 }

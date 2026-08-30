@@ -115,36 +115,3 @@ tasks.withType(JavaCompile) {
 		"-Xlint:unchecked"
 	 ])
 }
-
-
-/* I absolutely despise the src/main/java/com/example/... project structure.
- * Like... the com/example directories are doing literally nothing.
- * Why the [explative] is it there???
- * Oh you want to manually add the sources of another library?
- * MAKE ANOTHER SUBPROJECT OR ONE FOLDER.
- * src/ tells you where the sources are and you can do stuff like src-core and src-main
- * main/ separates code from tests and you can have main-native or main-jvm for java native compilation
- * java/ tells you the language and if there is binary incompatibility you can do java-25, java-8, java-17, etc
- * but com/example?
- * there is no use for it!!!
- * holy moly, the code in a repository from our organization has the package start with our organization?
- * impossible, i could never have figured that out without com/example.
- *
- * If you hate it so much, then just tell gradle and vscode to ignore it.
- * I TRIED. I TRIED FOR 4 HOURS.
- * EVERY SINGLE TIME IT COMPLETELY STRIPS THE 'org.team4153' FROM THE RUNTIME CLASS.
- * IT THROWS 'java.lang.ClassNotFoundException: org.team4153.biocore.Main'
- * IT FAILS TO RESOLVE AN IMPORT
- * I HATE THIS BUILD TOOL
- * I HATE IDES
- * I HATE JAVA
- * GET ME OUT OF HERE
- * I wish to program in Scala with SBT, but nooo.
- * "scala is too complicated"
- * "we're gonna make the only build tool compatible with WPILib the worst one ever"
- * I really really really want to like the JVM.
- * The JVM is honestly such a cool system and I love it.
- * but this...
- *
- * Tl;dr com/example at the end is useless, stop using it or I will find you.
-*/
