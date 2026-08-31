@@ -26,14 +26,19 @@ public class Conf {
 		can = config.getConfigList("can");
 		input = config.getConfigList("input");
 
-		can.forEach(Hardware::unsafeMakeHardware);
-
 		if (config.hasPath("hardwareArraySize"))
 			hardwareArraySize = config.getInt("hardwareArraySize");
 		else
 			hardwareArraySize = 0x1000;
+
+		can.forEach(Hardware::unsafeMakeHardware);
 	}
 
 
 	public static final int hardwareArraySize;
+
+	/** Useless method to run that forces the execution of the static
+	 * initializer/constructor
+	 */
+	public static void forceLoad() {}
 }

@@ -16,6 +16,7 @@ public class BaseRobot extends TimedRobot {
 	public final BaseRobotContainer container;
 
 	public BaseRobot(BaseRobotContainer container) {
+		Conf.forceLoad();
 		this.container = container;
 	}
 

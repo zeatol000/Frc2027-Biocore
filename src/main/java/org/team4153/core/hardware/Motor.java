@@ -3,7 +3,7 @@ package org.team4153.core.hardware;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 
-import org.team4153.core.config.Log;
+import org.team4153.core.config.Prelog;
 import org.team4153.core.hardware.CAN;
 import org.team4153.core.hardware.Hardware;
 import org.team4153.core.hardware.impl.*;
@@ -35,7 +35,7 @@ public interface Motor extends Hardware, Output, CAN {
 			case "sparkmax" -> new SparkMaxMotor(self);
 			default -> {
 				String msg = "Unknown motor type: "+cls+"\nCannot continue execution";
-				Log.error(msg);
+				Prelog.error(msg);
 				throw new ConfigException.Generic(msg);
 			}
 		};

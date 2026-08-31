@@ -4,7 +4,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 
 import org.team4153.core.config.Conf;
-import org.team4153.core.config.Log;
+import org.team4153.core.config.Prelog;
 import org.team4153.core.hardware.Motor;
 
 /** The [[java.lang.Object]] of hardware
@@ -36,7 +36,7 @@ public interface Hardware {
 
 		if (hardware[id] != null) {
 			String msg = "Conflicting hardware IDs: "+id+"\nCannot continue execution!!";
-			Log.error(msg);
+			Prelog.error(msg);
 			throw new ConfigException.Generic(msg);
 		}
 
@@ -46,7 +46,7 @@ public interface Hardware {
 			case "motor" -> Motor.unsafeMakeMotor(cfg);
 			default -> {
 				String msg = "Unknown hardware type: "+type;
-				Log.error(msg);
+				Prelog.error(msg);
 				throw new ConfigException.BadValue("type", msg);
 			}
 		};
