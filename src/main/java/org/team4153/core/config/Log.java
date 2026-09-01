@@ -9,7 +9,9 @@ import java.nio.file.StandardOpenOption;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigValueType;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import org.team4153.core.config.Conf;
 
@@ -19,7 +21,38 @@ import org.team4153.core.config.Conf;
  * Example:
  * Log.print("if this gets logged then the robot is about to explode")
  */
-public class Log {
+public class Log extends Command {
+	static {
+		Config c = Conf.config;
+
+		if (
+			!c.hasPath("logging.mode") ||
+			c.getValue("logging.mode").valueType() != ConfigValueType.STRING
+		) logLevel = LogLevel.match;
+
+		else logLevel = LogLevel.fromString(
+			c.getString("logging.mode")
+		);
+
+
+		if (
+			!c.hasPath("logging.file") ||
+			c.getValue("logging.file").valueType() != ConfigValueType.STRING
+		) logFile = null;
+
+		else {
+			String path = c.getString("logging.file");
+
+			if (!path.equals("none"))
+				logFile = Paths.get(path);
+
+			else
+				logFile = null;
+		}
+	}
+
+
+
 	/** The log level */
 	public static final LogLevel logLevel;
 
@@ -29,18 +62,12 @@ public class Log {
 
 	/** Log a raw message */
 	public static void print(String message) {
-		Commands.print(message);
-
-		if (logFile == null) return;
-		try {
-			Files.writeString(
-				logFile,
-				message,
-				StandardOpenOption.CREATE,
-				StandardOpenOption.APPEND
+		CommandScheduler
+			.getInstance()
+			.schedule(
+				Commands.print(message),
+				new Log(message)
 			);
-		}
-		catch (IOException e) {}
 	}
 
 	/** Log a message if the log level is dev. Formats with dev */
@@ -77,34 +104,29 @@ public class Log {
 	}
 
 
+// INSTANCE
+	public Log(String message) {
+		this.message = message;
+	}
 
-	static {
-		Config c = Conf.config;
+	public final String message;
 
-		if (
-			!c.hasPath("logging.mode") ||
-			c.getValue("logging.mode").valueType() != ConfigValueType.STRING
-		)
-			logLevel = LogLevel.match;
-
-		else logLevel = LogLevel.fromString(
-			c.getString("logging.mode")
-		);
-
-
-		if (
-			!c.hasPath("logging.file") ||
-			c.getValue("logging.file").valueType() != ConfigValueType.STRING
-		)
-			logFile = null;
-
-		else logFile = Paths.get(
-			c.getString("logging.file")
-		);
+	@Override
+	public void execute() {
+		if (logFile == null) return;
+		try {
+			Files.writeString(
+				logFile,
+				message,
+				StandardOpenOption.CREATE,
+				StandardOpenOption.APPEND
+			);
+		}
+		catch (IOException e) {}
 	}
 
 
-
+// LOG LEVEL
 	public static enum LogLevel {
 		match, pit, dev;
 

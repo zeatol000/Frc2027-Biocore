@@ -5,7 +5,8 @@ public enum MotorFeedback {
 	absoluteEncoder,
 	resolver,
 	hallEffect,
-	tachometer;
+	tachometer,
+	none;
 
 	public static MotorFeedback fromString(String str) {
 		return switch (str.toLowerCase()) {
@@ -14,7 +15,7 @@ public enum MotorFeedback {
 			case "resolver" -> resolver;
 			case "halleffect" -> hallEffect;
 			case "tachometer" -> tachometer;
-			default -> null;
+			default -> none;
 		};
 	}
 }

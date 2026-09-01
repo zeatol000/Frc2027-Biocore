@@ -36,7 +36,7 @@ public class SparkMaxMotor implements Motor {
 		brake			 = self.getBoolean("brake");
 		feedback		 = self.hasPath("feedback")
 						 ? MotorFeedback.fromString(self.getString("feedback"))
-						 : null;
+						 : MotorFeedback.none;
 
 		//encoderOverride = ;
 	}
