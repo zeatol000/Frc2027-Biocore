@@ -2,6 +2,8 @@ package org.team4153.core.hardware;
 
 /** A hardware element that is attached to the CAN network.
  *
+ * Requires that any implementing class also implements Hardware.
+ *
  * The CAN (Computer Area Network) has 5 parts:
  * - device type 		(5 bits)
  * - manufacturer id (8 bits)
@@ -18,7 +20,7 @@ package org.team4153.core.hardware;
  *
  * Node Id (bits 5-0) is the actual device.
  */
-public interface CAN {
+public interface CAN<Self extends CAN<Self> & Hardware> {
 	/** The unique node id */
 	public abstract byte NODE_ID();
 

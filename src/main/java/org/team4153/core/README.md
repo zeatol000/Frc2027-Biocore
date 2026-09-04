@@ -44,3 +44,11 @@ The default implementation of a drivetrain as well as utilities.
 
 **util**:
 General utilities.
+
+
+## Misc
+Any time you see "impl", that most likely means "implementation". For example,
+package org.team4153.core.hardware.impl contains the actually functioning code
+for each given hardware type.
+
+

@@ -13,6 +13,7 @@ import org.team4153.core.config.Conf;
  * 
  */
 public class BaseRobot extends TimedRobot {
+	/** The robot container */
 	public final BaseRobotContainer container;
 
 	public BaseRobot(BaseRobotContainer container) {
@@ -23,14 +24,5 @@ public class BaseRobot extends TimedRobot {
 	@Override
 	public void robotPeriodic() {
 		CommandScheduler.getInstance().run();
-	}
-
-	@Override
-	public void autonomousInit() {
-		CommandScheduler
-			.getInstance()
-			.schedule(
-				Commands.print("hi")
-			);
 	}
 }
