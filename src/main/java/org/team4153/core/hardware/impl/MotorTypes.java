@@ -1,12 +1,12 @@
 package org.team4153.core.hardware.impl;
 
-public enum MotorType {
+public enum MotorTypes {
 	TalonFX,
 	KrackenX60,
 	SparkMax,
 	Unknown;
 
-	public static MotorType fromString(String str) {
+	public static MotorTypes fromString(String str) {
 		return switch (str.toLowerCase()) {
 			case "neo" -> SparkMax;
 			case "sparkmax" -> SparkMax;

@@ -11,7 +11,7 @@ import org.team4153.core.hardware.impl.*;
 /** Physical motors attached to the CAN system. */
 public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 	/** The type of the motor. Eg. TalonFX or SparkMAX */
-	public abstract MotorType TYPE();
+	public abstract MotorTypes TYPE();
 
 	/** Encoder offsets. Set to 0 if the motor is used for movement instead of
 	 * specific rotation.

@@ -7,9 +7,10 @@ import com.typesafe.config.Config;
 
 import org.team4153.core.hardware.Motor;
 import org.team4153.core.hardware.MotorFeedback;
-import org.team4153.core.hardware.impl.MotorType;
+import org.team4153.core.hardware.impl.MotorTypes;
 
-public class SparkMaxMotor implements Motor {
+/* https://codedocs.revrobotics.com/java/com/revrobotics/spark/sparkmax */
+public class SparkMaxMotor extends SparkMax implements Motor {
 	protected final byte nodeId;
 	protected final byte busId;
 	protected final int id;
@@ -23,26 +24,59 @@ public class SparkMaxMotor implements Motor {
 
 	//protected final Encoder encoderOverride;
 
-	public SparkMaxMotor(Config self) {
-		nodeId = (byte) self.getInt("nodeId");
-		busId	 = (byte) self.getInt("canBus");
-		id		 = self.getInt("id");
-		name	 = self.getString("name");
+	public final SparkLowLevel.MotorType sparkType;
 
-		eOffset		 = self.hasPath("encoderOffset")
-						 ? (float) self.getDouble("encoderOffset")
-						 : 0.0f;
-		currentLimit = self.getInt("currentLimit");
-		brake			 = self.getBoolean("brake");
-		feedback		 = self.hasPath("feedback")
-						 ? MotorFeedback.fromString(self.getString("feedback"))
-						 : MotorFeedback.none;
+	public SparkMaxMotor(Config self) {
+		this(
+			(byte) self.getInt("nodeId"),
+			(byte) self.getInt("canBus"),
+			self.getInt("id"),
+			self.getString("name"),
+
+			self.hasPath("encoderOffset")
+				? (float) self.getDouble("encoderOffset")
+				: 0.0f,
+			self.getInt("currentLimit"),
+			self.getBoolean("brake"),
+			self.hasPath("feedback")
+				? MotorFeedback.fromString(self.getString("feedback"))
+				: MotorFeedback.none,
 
 		//encoderOverride = ;
+		
+			!self.hasPath("motorType")
+				? SparkLowLevel.MotorType.kBrushless
+				: !self.getString("motorType").toLowerCase().equals("kbrushed")
+					? SparkLowLevel.MotorType.kBrushless
+					: SparkLowLevel.MotorType.kBrushed
+		);
 	}
 
-	public final MotorType TYPE() {
-		return MotorType.SparkMax;
+	public SparkMaxMotor(
+		byte nodeId,
+		byte busId,
+		int  id,
+		String name,
+		float eOffset,
+		int currentLimit,
+		boolean brake,
+		MotorFeedback feedback,
+		SparkLowLevel.MotorType sparkType
+	) {
+		super((int) nodeId, sparkType); // the documentation is out of date istg
+		this.nodeId = nodeId;
+		this.busId = busId;
+		this.id = id;
+		this.name = name;
+		this.eOffset = eOffset;
+		this.currentLimit = currentLimit;
+		this.brake = brake;
+		this.feedback = feedback;
+		this.sparkType = sparkType;
+	}
+
+	public final MotorTypes TYPE() {
+		return MotorTypes.SparkMax;
 	}
 
 	public final byte NODE_ID() {
