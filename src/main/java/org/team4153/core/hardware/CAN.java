@@ -42,16 +42,16 @@ public interface CAN<Self extends CAN<Self> & Hardware> {
 	) {
 		// check if the fields fit into their respective area
 		// if no, return -1 to -4
-		if ((nodeId & 0x3f ^ nodeId) != 0)
+		if ((nodeId & ~0x3f) != 0)
 			return -1;
 
-		if ((apiIndex & 0xf ^ apiIndex) != 0)
+		if ((apiIndex & ~0xf) != 0)
 			return -2;
 
-		if ((apiClass & 0x3f ^ apiClass) != 0)
+		if ((apiClass & ~0x3f) != 0)
 			return -3;
 
-		if ((type & 0x1f ^ type) != 0)
+		if ((type & ~0x1f) != 0)
 			return -4;
 
 		return

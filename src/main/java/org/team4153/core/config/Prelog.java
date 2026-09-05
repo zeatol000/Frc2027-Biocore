@@ -10,6 +10,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigValueType;
 
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import org.team4153.core.config.Conf;
 
@@ -20,7 +21,11 @@ import org.team4153.core.config.Conf;
 public class Prelog {
 	/** Log a raw message */
 	public static void print(String message) {
-		Commands.print(message);
+		CommandScheduler
+			.getInstance()
+			.schedule(
+				Commands.print(message)
+			);
 	}
 
 	/** Log a message with info formatting */
