@@ -17,6 +17,20 @@ import org.team4153.core.config.Conf;
 /** Logging utilities that do not interact with the config. This is to allow
  * for simple message reporting before the config's static constructor has been
  * invoked as accessing static fields without it causes issues.
+ *
+ * Eg:
+ * robot accesses Conf for the first time
+ * -> Conf invokes the static constructor
+ * -> static constructor creates hardware elements
+ * -> hardware elements attempt to access the normal Log class
+ * -> Log class's static constructor runs
+ * -> the Log static constructor tries to access logging fields in Conf.config
+ * -> since the Conf static constructor has not finished, this accessing may
+ *    be ignored (i'm not too sure how it works after this)
+ * -> Logging can no longer happen.
+ *
+ * However with Prelog, it ignores the Conf class so static construction can
+ * happen properly.
  */
 public class Prelog {
 	/** Log a raw message */

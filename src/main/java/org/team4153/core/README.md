@@ -37,9 +37,6 @@ Code for dealing with or being the supervising laptop (drivers station).
 Subsystem interfaces and classes for a robot. A subsystem could literally be
 anything that does stuff. Eg. a shooter, a funnel, the drivetrain itself.
 
-**systems.drivetrain**:
-The default implementation of a drivetrain as well as utilities.
-
 **util**:
 General utilities.
 
@@ -53,7 +50,7 @@ General utilities.
 2. [FRC Glossary](https://docs.wpilib.org/en/stable/docs/software/frc-glossary.html)
     Definitions of weird terms like "RSL".
 3. [Command Based Programming](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html)
-    Its like functional programming, but worse.
+    Its like functional programming, but more object oriented.
 
 #### Data
 4. [Dashboards](https://docs.wpilib.org/en/stable/docs/software/dashboards/index.html)
@@ -168,3 +165,42 @@ class D implements A, B<D>  {...}
 This is a way of forcing 'if B then A' in interfaces.
 This is particularly useful with the hardware interfaces, as it makes no sense
 that a `CAN` class isn't a `Hardware` class either.
+
+
+### Static Constructors
+If a class constructor is what properly sets up class fields and whatnots, then
+a static constructor is pretty much the exact same, but for static fields.
+Static constructors are declared with `static { ... }` and they only run once,
+when the class is accessed for the first time. For example:
+```java
+public class Conf {
+    public static final Config config;
+    public static final List<? extends Config> can, input;
+    static {
+        config = ConfigFactory.load();
+        can = config.getConfigList("can");
+        // ...
+        can.forEach(Hardware::unsafeMakeHardware);
+    }
+}
+```
+Keep in mind that it is always better to have strings and primitives be defined
+at compiletime. `static final String x = "something";`. This is because strings
+and primitives can go through a process called inlining and constant folding.
+Basically, if you have `1 + 2`, then why waste time at runtime computing `1 + 2`
+when you can just have `3`. Similar things with strings apply.
+
+Inlining doesn't apply when:
+- the type is not java.lang.String or any primitive
+- the field is not static
+- the field is not final
+- the field is defined in the static constructor
+
+However, the Java virtual machine is also very smart. If you access `Conf.config`,
+then the Java virtual machine can often optimize the
+`getstatic org/team4153/core/config/Conf.config` instruction (not how it appears
+in actual class files) into the literal address of the field.
+As you can expect, these optimizations only apply to final fields. However, 
+these **can** be applied to instance fields, but with huge restrictions.
+These optimizations only really run in HotSpot JIT C2 compilation, where if a
+function is ran enough times, then the JVM will compile it to machine code.
