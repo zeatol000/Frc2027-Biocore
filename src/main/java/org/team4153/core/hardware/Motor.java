@@ -16,9 +16,6 @@ import org.team4153.core.hardware.impl.*;
  * encoder offsets. But we use doubles for large values such as speed.
  */
 public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
-	/** The type of the motor. Eg. TalonFX or SparkMAX */
-	MotorType TYPE();
-
 	/** Encoder offsets. Set to 0 if the motor is used for movement instead of
 	 * specific rotation.
 	 */
