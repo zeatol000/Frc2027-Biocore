@@ -3,23 +3,29 @@ package org.team4153.core.hardware;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+
 import org.team4153.core.config.Prelog;
 import org.team4153.core.hardware.CAN;
 import org.team4153.core.hardware.Hardware;
 import org.team4153.core.hardware.impl.*;
 
-/** Physical motors attached to the CAN system. */
+/** Physical motors attached to the CAN system.
+ *
+ * Note: for computation times, we use floats for rotation angles such as
+ * encoder offsets. But we use doubles for large values such as speed.
+ */
 public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 	/** The type of the motor. Eg. TalonFX or SparkMAX */
-	public abstract MotorType TYPE();
+	MotorType TYPE();
 
 	/** Encoder offsets. Set to 0 if the motor is used for movement instead of
 	 * specific rotation.
 	 */
-	public abstract float encoderOffset();
+	float encoderOffset();
 
 
-	public static Motor getByCan(byte canId) {
+	static Motor getByCan(byte canId) {
 		if (CAN.elements[canId] instanceof Motor m)
 			return m;
 
@@ -28,7 +34,7 @@ public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 	}
 
 
-	public static Motor unsafeMakeMotor(Config self) {
+	static Motor unsafeMakeMotor(Config self) {
 		String cls = self.getString("class").toLowerCase();
 
 		return switch (cls) {
@@ -42,4 +48,28 @@ public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 
 		//return el;
 	}
+
+	/** Set the current speed. Power motors */
+	void run(double speed);
+
+	/** Get the current speed. Power motors */
+	double speed();
+
+	/** ???. Power motors */
+	double distance();
+
+	/** Get the raw angle of the encoder. Rotation motors */
+	Rotation2d rawAngle();
+
+	/** Get the angle of the encoder, considering offset. Rotation motors */
+	Rotation2d realAngle();
+
+	/** Set the angle of rotation. Rotation motors */
+	void rotate(float setpoint);
+
+	/** Stop movement or return to default rotation. Either power or rotation */
+	void stop();
+
+	/** Log the state. Either power or rotation */
+	void log(String key);
 }
