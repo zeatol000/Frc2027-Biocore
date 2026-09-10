@@ -34,7 +34,7 @@ public class SwerveModule {
 
 		SmartDashboard.putNumber(s + "/finalVelocity", desired.speedMetersPerSecond);
 
-		float angle = desired.angle.getRadians();
+		float angle = (float) desired.angle.getRadians();
 		double speed = desired.speedMetersPerSecond / maxSpeedMPS;
 		rotation.rotate(angle);
 		power.run(speed);
@@ -54,12 +54,12 @@ public class SwerveModule {
 		return new SwerveModuleState(vel, angle);
 	}
 
-	public float distance() {
+	public double distance() {
 		return power.distance();
 	}
 
-	public void log() {
+	/*public void log() {
 		power.log(desc);
 		rotation.log(desc);
-	}
+	}*/
 }

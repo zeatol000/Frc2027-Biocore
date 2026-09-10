@@ -21,7 +21,11 @@ public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 	 */
 	float encoderOffset();
 
+	/** Is this motor used for rotation instead of general power? */
+	boolean isRotation();
 
+
+	/** Get a motor by its CAN id, or null if it doesn't exist or isn't a motor */
 	static Motor getByCan(byte canId) {
 		if (CAN.elements[canId] instanceof Motor m)
 			return m;
@@ -31,6 +35,7 @@ public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 	}
 
 
+	/** Internal method for assembling motors by config */
 	static Motor unsafeMakeMotor(Config self) {
 		String cls = self.getString("class").toLowerCase();
 
@@ -64,9 +69,8 @@ public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 	/** Set the angle of rotation. Rotation motors */
 	void rotate(float setpoint);
 
-	/** Stop movement or return to default rotation. Either power or rotation */
+	/** Stop movement or return to the default rotation. Either power or rotation */
 	void stop();
 
-	/** Log the state. Either power or rotation */
-	void log(String key);
+	//void log(String key);
 }
