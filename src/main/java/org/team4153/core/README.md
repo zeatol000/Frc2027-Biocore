@@ -103,6 +103,15 @@ package org.team4153.core.hardware.impl contains the actually functioning code
 for each given hardware type.
 
 
+### HW and API
+Some classes will be suffixed with "HW" or "API". These are to differentiate
+the hardware (HW) class from the high level (API) class. You'll generally want
+to use the high level class, which uses the hardware class.
+
+To reduce confusion against other FRC codebases, Robot (hardware) and
+RobotContainer (high level) are used instead of RobotHW and RobotAPI.
+
+
 ### Romi
 You will often hear the term "Romi" when dealing with FRC. It is mostly
 unrelated to what you will be doing. The Romi Robot Kit is a tool that helps

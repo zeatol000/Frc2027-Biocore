@@ -22,7 +22,7 @@ public class SwerveModule {
 
 	public void setDesiredState(SwerveModuleState desired) {
 		Rotation2d current = rotation.realAngle();
-		String s = "Swerve/" + desc;
+		String s = "Drivetrain/" + desc;
 
 		// degrees for human viewing.
 		SmartDashboard.putNumber(s + "/currentAngle", current.getDegrees());
