@@ -1,65 +1,72 @@
 {
-  "Docking": {
-    "Data": []
-  },
-  "MainWindow": {
-    "GLOBAL": {
-      "font": "Proggy Dotted",
-      "fps": "120",
-      "height": "720",
-      "maximized": "0",
-      "style": "0",
-      "userScale": "2",
-      "width": "1280",
-      "xpos": "5",
-      "ypos": "98"
-    }
-  },
+  "Docking": {"Data": []},
+  "MainWindow": {"GLOBAL": {
+    "font": "Proggy Dotted",
+    "fps": "120",
+    "height": "1130",
+    "maximized": "0",
+    "style": "0",
+    "userScaling": "100",
+    "width": "973",
+    "xpos": "5",
+    "ypos": "65"
+  }},
+  "Table": {"0xED901DC8,2": {"RefScale": "10"}},
   "Window": {
-    "###FMS": {
+    "DS": {
       "Collapsed": "0",
-      "Pos": "5,540",
-      "Size": "283,140"
-    },
-    "###Joysticks": {
-      "Collapsed": "0",
-      "Pos": "250,465",
-      "Size": "796,73"
-    },
-    "###NetworkTables": {
-      "Collapsed": "0",
-      "Pos": "250,277",
-      "Size": "750,185"
-    },
-    "###NetworkTables Info": {
-      "Collapsed": "0",
-      "Pos": "250,130",
-      "Size": "750,145"
-    },
-    "###Other Devices": {
-      "Collapsed": "0",
-      "Pos": "1025,20",
-      "Size": "250,695"
-    },
-    "###System Joysticks": {
-      "Collapsed": "0",
-      "Pos": "5,350",
-      "Size": "192,218"
-    },
-    "###Timing": {
-      "Collapsed": "0",
-      "Pos": "5,150",
-      "Size": "135,127"
+      "Pos": "7,655",
+      "Size": "140,140"
     },
     "Debug##Default": {
       "Collapsed": "0",
       "Pos": "60,60",
       "Size": "400,400"
     },
+    "Display": {
+      "Collapsed": "0",
+      "Pos": "320,19",
+      "Size": "650,320"
+    },
+    "FMS": {
+      "Collapsed": "0",
+      "Pos": "5,540",
+      "Size": "283,140"
+    },
+    "Joysticks": {
+      "Collapsed": "0",
+      "Pos": "352,342",
+      "Size": "616,65"
+    },
+    "NetworkTables": {
+      "Collapsed": "0",
+      "Pos": "2,942",
+      "Size": "714,185"
+    },
+    "NetworkTables Info": {
+      "Collapsed": "0",
+      "Pos": "3,794",
+      "Size": "713,145"
+    },
+    "Other Devices": {
+      "Collapsed": "0",
+      "Pos": "721,412",
+      "Size": "250,715"
+    },
     "Robot State": {
       "Collapsed": "0",
       "Pos": "5,20",
-      "Size": "99,116"
+      "Size": "237,132"
+    },
+    "System Joysticks": {
+      "Collapsed": "0",
+      "Pos": "8,465",
+      "Size": "151,182"
+    },
+    "Timing": {
+      "Collapsed": "0",
+      "Pos": "5,158",
+      "Size": "249,119"
     }
   }
 }

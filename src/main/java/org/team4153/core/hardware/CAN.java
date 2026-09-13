@@ -1,5 +1,7 @@
 package org.team4153.core.hardware;
 
+import org.wpilib.hardware.bus.CANPort;
+
 /** A hardware element that is attached to the CAN network.
  *
  * Requires that any implementing class also implements Hardware.
@@ -31,7 +33,7 @@ public interface CAN<Self extends CAN<Self> & Hardware> {
 	public abstract byte NODE_ID();
 
 	/** The unique bus id */
-	public abstract byte BUS_ID();
+	public abstract CANPort PORT();
 
 
 	/** An array of all CAN elements. Generally, users shouldn't touch this. */

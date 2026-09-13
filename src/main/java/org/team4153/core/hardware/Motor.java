@@ -3,7 +3,7 @@ package org.team4153.core.hardware;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 
-import edu.wpi.first.math.geometry.Rotation2d;
+import org.wpilib.math.geometry.Rotation2d;
 
 import org.team4153.core.config.Prelog;
 import org.team4153.core.hardware.CAN;
@@ -54,9 +54,6 @@ public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 	/** Set the current speed. Power motors */
 	void run(double speed);
 
-	/** Get the current speed. Power motors */
-	double speed();
-
 	/** ???. Power motors */
 	double distance();
 
@@ -71,6 +68,13 @@ public interface Motor extends Hardware, Output<Motor>, CAN<Motor> {
 
 	/** Stop movement or return to the default rotation. Either power or rotation */
 	void stop();
+
+	/** Get the current speed. Either power or rotation */
+	double speed();
+
+	/* Get the current acceleration. Either power or rotation *
+	double acc();*/
+
 
 	//void log(String key);
 }

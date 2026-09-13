@@ -1,22 +1,23 @@
 package org.team4153.core.hardware.impl;
 
-//import com.revrobotics.ResetMode;
-//import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.PersistMode;
 //import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
-//import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-//import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.util.CANPorts;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import com.typesafe.config.Config;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.wpilib.hardware.bus.CANPort;
+import org.wpilib.math.geometry.Rotation2d;
+//import org.wpilib.wpilibj.smartdashboard.SmartDashboard;
 
 import org.team4153.core.hardware.Motor;
 import org.team4153.core.hardware.MotorFeedback;
-//import org.team4153.core.hardware.impl.MotorTypes;
 import org.team4153.core.util.MathUtils;
 
 /** SparkMax motors https://codedocs.revrobotics.com/java/com/revrobotics/spark/sparkmax
@@ -27,12 +28,11 @@ import org.team4153.core.util.MathUtils;
  */
 public class SparkMaxMotor extends SparkMax implements Motor {
 	protected final byte nodeId;
-	protected final byte busId;
+	protected final CANPort port;
 	protected final int id;
 	protected final String name;
 
 	protected final boolean brake;
-	protected final int currentLimit; // amps
 	
 	protected final float eOffset;
 	protected final boolean rotation;
@@ -42,19 +42,17 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 
 	public final SparkLowLevel.MotorType sparkType;
 	protected final SparkClosedLoopController controller;
-	//public final SparkMaxConfig cfg;
 
 	public SparkMaxMotor(Config self) {
 		this(
 			(byte) self.getInt("nodeId"),
-			(byte) self.getInt("canBus"),
+			CANPorts.fromBusId(self.getInt("canPort")),
 			self.getInt("id"),
 			self.getString("name"),
 
 			self.hasPath("encoderOffset")
 				? (float) self.getDouble("encoderOffset")
 				: 0.0f,
-			self.getInt("currentLimit"),
 			self.getBoolean("brake"),
 			self.hasPath("feedback")
 				? MotorFeedback.fromString(self.getString("feedback"))
@@ -70,18 +68,18 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 
 			self.hasPath("encoderOffset"),
 			
-			/*self.hasPath("kReset")
+			self.hasPath("kReset")
 				? !self.getBoolean("kReset")
 				: false,
 			self.hasPath("kPersist")
 				? !self.getBoolean("kPersist")
-				: false,*/
+				: false,
 
 			self.hasPath("inverted")
 				? self.getBoolean("inverted")
-				: false
+				: false,
 
-			//null
+			null
 		);
 	}
 
@@ -93,27 +91,25 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 	 */
 	public SparkMaxMotor(
 		byte nodeId,
-		byte busId,
+		CANPort port,
 		int  id,
 		String name,
 		float eOffset,
-		int currentLimit,
 		boolean brake,
 		MotorFeedback feedback,
 		SparkLowLevel.MotorType sparkType,
 		boolean rotation,
-		//boolean noReset,
-		//boolean noPersist,
-		boolean inverted
-		//SparkMaxConfig cfg
+		boolean noReset,
+		boolean noPersist,
+		boolean inverted,
+		SparkMaxConfig cfg
 	) {
-		super(nodeId, sparkType); // the website's documentation is ahead of date... uuhhhg
+		super(port, nodeId, sparkType);
 		this.nodeId = nodeId;
-		this.busId = busId;
+		this.port = port;
 		this.id = id;
 		this.name = name;
 		this.eOffset = eOffset;
-		this.currentLimit = currentLimit;
 		this.brake = brake;
 		this.feedback = feedback;
 		this.sparkType = sparkType;
@@ -123,14 +119,12 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 					  ? getClosedLoopController()
 					  : null;
 
-		/*if (cfg == null)
+		if (cfg == null)
 			 cfg = new SparkMaxConfig();
 
 		cfg
 			.idleMode( brake? IdleMode.kBrake: IdleMode.kCoast )
 			.inverted(inverted);
-
-		this.cfg = cfg;
 
 		configure(
 			cfg,
@@ -140,36 +134,38 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 			noPersist
 				? PersistMode.kNoPersistParameters
 				: PersistMode.kPersistParameters
-		);*/
+		);
 	}
 
 
 // Power motor methods
 	public final void run(double speed) {
 		speed = MathUtils.clamp(speed, -1, 1);
-		set(speed);
+		setThrottle(speed);
 	}
 
 	public final double speed() {
-		return get();
+		return getThrottle();
 	}
 
 	public final double distance() {
-		return getEncoder().getPosition();
+		return getEncoder().getPosition().get();
 	}
 
 // Power and Rotation
 	public final void stop() {
-		set(0); // SparkMax method
+		stopMotor();
 	}
 
 // Rotation motor methods
 	public final Rotation2d rawAngle() {
-		return new Rotation2d(getAnalog().getPosition());
+		return new Rotation2d(getAnalog().getPosition().get());
 	}
 
 	public final Rotation2d realAngle() {
-		return new Rotation2d(((float) getAnalog().getPosition()) - eOffset);
+		return new Rotation2d(
+			getAnalog().getPosition().get() - eOffset
+		);
 	}
 
 	public final void rotate(float setpoint) {
@@ -184,8 +180,8 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 		return nodeId;
 	}
 
-	public final byte BUS_ID() {
-		return busId;
+	public final CANPort PORT() {
+		return port;
 	}
 
 	public final int ID() {

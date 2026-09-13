@@ -1,18 +1,7 @@
 package org.team4153.core.config;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigValueType;
-
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
-import org.team4153.core.config.Conf;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /** Logging utilities that do not interact with the config. This is to allow
  * for simple message reporting before the config's static constructor has been
@@ -33,30 +22,29 @@ import org.team4153.core.config.Conf;
  * happen properly.
  */
 public class Prelog {
+	public static final DateTimeFormatter format =
+		DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss.S"); // S for fraction-of-second or n for nano-of-second.
+
 	/** Log a raw message */
 	public static void print(String message) {
-		CommandScheduler
-			.getInstance()
-			.schedule(
-				Commands.print(message)
-			);
+		System.out.println(message);
 	}
 
 	/** Log a message with info formatting */
 	public static void info(String message) {
-		message = "[info] " + message;
+		message = "INF! " + LocalDateTime.now().format(format) + " " + message;
 		print(message);
 	}
 
 	/** Log a message with warning formatting */
 	public static void warn(String message) {
-		message = "[warn] " + message;
+		message = "WRN! " + LocalDateTime.now().format(format) + " " + message;
 		print(message);
 	}
 
 	/** Log a message with error formatting */
 	public static void error(String message) {
-		message = "[error] " + message;
+		message = "ERR! " + LocalDateTime.now().format(format) + " " + message;
 		print(message);
 	}
 }

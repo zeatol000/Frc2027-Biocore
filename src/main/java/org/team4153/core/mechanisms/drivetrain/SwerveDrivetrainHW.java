@@ -1,25 +1,35 @@
-package org.team4153.core.systems.drivetrain;
+package org.team4153.core.mechanisms.drivetrain;
 
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.StructArrayPublisher;
-import edu.wpi.first.networktables.StructArrayTopic;
-import edu.wpi.first.networktables.StructPublisher;
-import edu.wpi.first.networktables.StructTopic;
+import org.wpilib.math.kinematics.ChassisVelocities;
+import org.wpilib.math.kinematics.SwerveDriveKinematics;
+import org.wpilib.math.kinematics.SwerveModuleAcceleration;
+import org.wpilib.math.kinematics.SwerveModulePosition;
+import org.wpilib.math.kinematics.SwerveModuleVelocity;
+import org.wpilib.math.kinematics.SwerveDriveKinematics;
+import org.wpilib.math.kinematics.SwerveDriveOdometry;
+import org.wpilib.math.kinematics.SwerveDriveOdometry3d;
+import org.wpilib.networktables.NetworkTableInstance;
+import org.wpilib.networktables.StructArrayPublisher;
+import org.wpilib.networktables.StructArrayTopic;
+import org.wpilib.networktables.StructPublisher;
+import org.wpilib.networktables.StructTopic;
 
 import org.team4153.core.config.Conf;
 import org.team4153.core.hardware.Hardware;
 import org.team4153.core.hardware.Motor;
-import org.team4153.core.systems.drivetrain.DrivetrainHW;
-import org.team4153.core.systems.drivetrain.SwerveModule;
+import org.team4153.core.mechanisms.drivetrain.DrivetrainHW;
+import org.team4153.core.mechanisms.drivetrain.SwerveModule;
 
 /** Swerve drivetrain hardware api. */
-public class SwerveDrivetrainHW
-extends DrivetrainHW<SwerveModuleState, SwerveModulePosition, SwerveModule>
-{
+public class SwerveDrivetrainHW extends DrivetrainHW<
+	SwerveModule,
+	SwerveModuleAcceleration,
+	SwerveModuleVelocity,
+	SwerveModulePosition,
+	SwerveDriveKinematics,
+	SwerveDriveOdometry,
+	SwerveDriveOdometry3d
+> {
 	// The swerve modules
 	/** Front left swerve */
 	public final SwerveModule fl;
@@ -33,56 +43,51 @@ extends DrivetrainHW<SwerveModuleState, SwerveModulePosition, SwerveModule>
 
 	// construct by config
 	public SwerveDrivetrainHW() {
-		super(
-			NetworkTableInstance
-				.getDefault()
-				.getStructArrayTopic(
-					"/SmartDashboard/SwerveVelocity",
-					SwerveModuleState.struct
-				),
-			Conf.config.hasPath("drivetrain.maxSpeedMPS")
-				? Conf.config.getDouble("drivetrain.maxSpeedMPS")
-				: 7.5
-		);
-
 		var c = Conf.config;
 		var h = Hardware.hardware;
+
+		double max = c.hasPath("drivetrain.maxSpeedMPS")
+			? c.getDouble("drivetrain.maxSpeedMPS")
+			: 7.5;
+
 		
-		fl = new SwerveModule(
+		var fl = new SwerveModule(
 			"FrontLeft",
 			(Motor) h[c.getInt("drivetrain.front-left.power")],
 			(Motor) h[c.getInt("drivetrain.front-left.steer")],
 			c.hasPath("drivetrain.front-left.maxSpeedMPS")
 				? c.getDouble("drivetrain.front-left.maxSpeedMPS")
-				: maxSpeedMPS
+				: max
 		);
 
-		fr = new SwerveModule(
+		var fr = new SwerveModule(
 			"FrontRight",
 			(Motor) h[c.getInt("drivetrain.front-right.power")],
 			(Motor) h[c.getInt("drivetrain.front-right.steer")],
 			c.hasPath("drivetrain.front-right.maxSpeedMPS")
 				? c.getDouble("drivetrain.front-right.maxSpeedMPS")
-				: maxSpeedMPS
+				: max
 		);
 
-		bl = new SwerveModule(
+		var bl = new SwerveModule(
 			"BackLeft",
 			(Motor) h[c.getInt("drivetrain.back-left.power")],
 			(Motor) h[c.getInt("drivetrain.back-left.steer")],
 			c.hasPath("drivetrain.back-left.maxSpeedMPS")
 				? c.getDouble("drivetrain.back-left.maxSpeedMPS")
-				: maxSpeedMPS
+				: max
 		);
 
-		br = new SwerveModule(
+		var br = new SwerveModule(
 			"BackRight",
 			(Motor) h[c.getInt("drivetrain.back-right.power")],
 			(Motor) h[c.getInt("drivetrain.back-right.steer")],
 			c.hasPath("drivetrain.back-right.maxSpeedMPS")
 				? c.getDouble("drivetrain.back-right.maxSpeedMPS")
-				: maxSpeedMPS
+				: max
 		);
+
+		this(max, fl, fr, bl, br);
 
 	}
 
@@ -99,8 +104,9 @@ extends DrivetrainHW<SwerveModuleState, SwerveModulePosition, SwerveModule>
 				.getDefault()
 				.getStructArrayTopic(
 					"/SmartDashboard/SwerveVelocity",
-					SwerveModuleState.struct
+					SwerveModuleVelocity.struct
 				),
+
 			maxSpeedMPS
 		);
 
@@ -110,12 +116,12 @@ extends DrivetrainHW<SwerveModuleState, SwerveModulePosition, SwerveModule>
 		this.br = br;
 	}
 
-	public void setDesiredStates(SwerveModuleState[] states) {
-		SwerveDriveKinematics.desaturateWheelSpeeds(states, maxSpeedMPS);
-		fl.setDesiredState(states[0]);
-		fr.setDesiredState(states[1]);
-		bl.setDesiredState(states[2]);
-		br.setDesiredState(states[3]);
+	public void setDesiredVelocities(SwerveModuleVelocity[] vel) {
+		vel = SwerveDriveKinematics.desaturateWheelVelocities(vel, maxSpeedMPS);
+		fl.setDesiredVelocity(vel[0]);
+		fr.setDesiredVelocity(vel[1]);
+		bl.setDesiredVelocity(vel[2]);
+		br.setDesiredVelocity(vel[3]);
 	}
 
 	public SwerveModulePosition[] positions() {
@@ -127,12 +133,12 @@ extends DrivetrainHW<SwerveModuleState, SwerveModulePosition, SwerveModule>
 		};
 	}
 
-	public SwerveModuleState[] states() {
-		return new SwerveModuleState[] {
-			fl.state(),
-			fr.state(),
-			bl.state(),
-			br.state()
+	public SwerveModuleVelocity[] velocities() {
+		return new SwerveModuleVelocity[] {
+			fl.vel(),
+			fr.vel(),
+			bl.vel(),
+			br.vel()
 		};
 	}
 }

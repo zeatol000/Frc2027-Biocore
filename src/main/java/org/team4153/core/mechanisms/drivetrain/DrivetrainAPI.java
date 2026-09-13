@@ -1,4 +1,4 @@
-package org.team4153.core.systems.drivetrain;
+package org.team4153.core.mechanisms.drivetrain;
 
 public class DrivetrainAPI {
 	public final DrivetrainHW drivetrain;

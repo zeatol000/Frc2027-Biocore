@@ -1,6 +1,6 @@
 package org.team4153.biocore;
 
-import edu.wpi.first.wpilibj.RobotBase;
+import org.wpilib.framework.RobotBase;
 
 import org.team4153.core.BaseRobot;
 
