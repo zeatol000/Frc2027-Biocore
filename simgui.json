@@ -3,9 +3,8 @@
     "\/DriverStation": "DriverStation",
     "\/FMSInfo": "FMSInfo"
   }},
-  "NetworkTables": {"transitory": {
-    "DriverStation": {"open": true},
-    "Robot": {"open": true}
-  }},
-  "NetworkTables Info": {"visible": true}
+  "NetworkTables Info": {
+    "Connections": {"open": true},
+    "visible": true
+  }
 }

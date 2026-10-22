@@ -11,12 +11,20 @@
     "xpos": "5",
     "ypos": "65"
   }},
-  "Table": {"0xED901DC8,2": {"RefScale": "10"}},
+  "Table": {
+    "0x48040D35,4": {
+      "Column 0  Weight": "1.0000",
+      "Column 1  Weight": "1.0000",
+      "Column 2  Weight": "1.0000",
+      "Column 3  Weight": "1.0000"
+    },
+    "0xED901DC8,2": {"RefScale": "10"}
+  },
   "Window": {
     "DS": {
       "Collapsed": "0",
       "Pos": "7,655",
-      "Size": "140,140"
+      "Size": "136,140"
     },
     "Debug##Default": {
       "Collapsed": "0",

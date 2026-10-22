@@ -8,15 +8,16 @@ import org.team4153.core.BaseRobotContainer;
 import org.team4153.core.config.Conf;
 import org.team4153.core.config.Log;
 
+import org.wpilib.command3.*;
 
 /** The main class that handles hardware connection.
  * 
  */
 public class BaseRobot extends TimedRobot {
 	/** The robot container */
-	public final BaseRobotContainer container;
+	public final RobotContainer container;
 
-	public BaseRobot(BaseRobotContainer container) {
+	public BaseRobot(RobotContainer container) {
 		Conf.forceLoad();
 		this.container = container;
 

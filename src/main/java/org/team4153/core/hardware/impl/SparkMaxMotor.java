@@ -69,22 +69,19 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 			self.hasPath("encoderOffset"),
 			
 			self.hasPath("kReset")
-				? !self.getBoolean("kReset")
-				: false,
+				&& !self.getBoolean("kReset"),
 			self.hasPath("kPersist")
-				? !self.getBoolean("kPersist")
-				: false,
+				&& !self.getBoolean("kPersist"),
 
 			self.hasPath("inverted")
-				? self.getBoolean("inverted")
-				: false,
+				&& self.getBoolean("inverted"),
 
 			null
 		);
 	}
 
-	/** Primary constructor. Takes all of the important arguments and assembles
-	 * a SparkMaxMotor instance.
+	/** Primary constructor. Takes all the important arguments and assembles a
+	 * SparkMaxMotor instance.
 	 *
 	 * @param cfg Alternate {@link SparkMaxConfig} that will be prioritized over
 	 * 	making a new SparkMaxConfig. 
@@ -116,8 +113,8 @@ public class SparkMaxMotor extends SparkMax implements Motor {
 		this.rotation = rotation;
 
 		controller = rotation
-					  ? getClosedLoopController()
-					  : null;
+			? getClosedLoopController()
+			: null;
 
 		if (cfg == null)
 			 cfg = new SparkMaxConfig();

@@ -32,17 +32,21 @@ public class Log implements Command {
 
 		if(!c.hasPath("logging.mode") ||
 			c.getValue("logging.mode").valueType() != ConfigValueType.STRING
-		) logLevel = LogLevel.match;
-
-		else logLevel = LogLevel.fromString(
-			c.getString("logging.mode")
-		);
+		) {
+			logLevel = LogLevel.match;
+		}
+		else {
+			logLevel = LogLevel.fromString(
+				c.getString("logging.mode")
+			);
+		}
 
 
 		if(!c.hasPath("logging.file") ||
 			c.getValue("logging.file").valueType() != ConfigValueType.STRING
-		) logFile = null;
-
+		) {
+			logFile = null;
+		}
 		else {
 			String path = c.getString("logging.file");
 
@@ -51,6 +55,16 @@ public class Log implements Command {
 
 			else
 				logFile = null;
+		}
+
+
+		if(!c.hasPath("logging.stack") ||
+			c.getValue("logging.stack").valueType() != ConfigValueType.NUMBER
+		) {
+			maxStack = c.getInt("logging.stack");
+		}
+		else {
+			maxStack = 8;
 		}
 	}
 
@@ -61,6 +75,9 @@ public class Log implements Command {
 
 	/** The file to log to (or null if none) */
 	public static final Path logFile;
+
+	/** How many stack iterations to print on an exception */
+	public static final int maxStack;
 
 
 	/** Log a raw message */
@@ -105,6 +122,35 @@ public class Log implements Command {
 	public static void error(String message) {
 		message = "ERR " + LocalDateTime.now().format(format) + " " + message;
 		print(message);
+	}
+
+	/** Log a message with error formatting and an exception */
+	public static void error(String message, Throwable e) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("ERR ")
+			.append(LocalDateTime.now().format(format))
+			.append(' ')
+			.append(message)
+			.append('\n');
+
+		StackTraceElement[] stack = e.getStackTrace();
+		int len = Math.min(maxStack, stack.length);
+
+		for (int i = 0; i < len; i++) {  // hopefully good formatting.
+			StackTraceElement elem = stack[i];
+			sb.append("\tat ")
+				.append(elem.getClassName())
+				.append("::")
+				.append(elem.getMethodName())
+				.append(" in ")
+				.append(elem.getFileName())
+				.append(':')
+				.append(elem.getLineNumber())
+				.append('\n');
+		}
+
+		print(sb.toString());
 	}
 
 
