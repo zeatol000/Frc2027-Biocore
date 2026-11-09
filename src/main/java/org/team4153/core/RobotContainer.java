@@ -20,9 +20,9 @@ public interface RobotContainer {
     * constructor with an arbitrary predicate or via the named
     * factories in {@link org.wpilib.command3.button.CommandXboxController}
     *
-    * The reason why this isn't fully in the config file is because
-    * the trigger actions have complex results. E.g., how do you represent
-    * XButton.toggleOnTrue(swerve.pointToHubCommand()) as a hocon config?
+    * The reason why this isn't fully in the config file is because the trigger
+	 * actions have complex results. E.g., how do you represent
+	 * XButton.toggleOnTrue(swerve.pointToHubCommand()) as a hocon config?
     * My best bet would be ```
     * XButton {
     *   toggle = true
@@ -31,9 +31,8 @@ public interface RobotContainer {
     *     action = "pointToHubCommand"
     *   }
     * }```.
-    * Although automating the creation of the Trigger would mean using
-    * Java reflection, which adds unesseccary complexity for a basic
-    * FRC bot.
+    * Although automating the creation of the Trigger would mean using Java
+	 * reflection, which adds unesseccary complexity for a basic FRC bot.
     */
    void configureBindings();
 
@@ -50,15 +49,15 @@ public interface RobotContainer {
     * and the bot will follow a 'complex command' as saved in a file, but that
     * is out of the scope of this current library.
     */
-   void startRecording();
+   default void startRecording() {};
 
    /** Stops a recording if active, and saves it to the deploy directory.
     * Call from disabledInit()
     */
-   void stopRecording();
+   default void stopRecording() {};
 
    /** Call once per loop from robotPeriodic() to sample driver input while
     * recording.
     */
-   void recordPeriodic();
+   default void recordPeriodic() {};
 }

@@ -21,10 +21,6 @@ import org.team4153.core.hardware.MotorFeedback;
 import org.team4153.core.util.MathUtils;
 
 /** SparkMax motors https://codedocs.revrobotics.com/java/com/revrobotics/spark/sparkmax
- *
- * Normally, you configure SparkMax motors via SparkMaxConfig, but those have
- * been marked as deprecated and we cannot incur warnings under -Werror, so I
- * guess we just aren't configuring the motors?
  */
 public class SparkMaxMotor extends SparkMax implements Motor {
 	protected final byte nodeId;

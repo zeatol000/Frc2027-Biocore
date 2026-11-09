@@ -50,7 +50,7 @@ public class Log implements Command {
 		else {
 			String path = c.getString("logging.file");
 
-			if (!path.equals("none"))
+			if (!path.equalsIgnoreCase("none"))
 				logFile = Paths.get(path);
 
 			else

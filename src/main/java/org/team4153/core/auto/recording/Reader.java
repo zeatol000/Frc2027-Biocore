@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.StandardOpenOption.CREATE;
 
 import org.team4153.core.config.Log;
 
@@ -41,6 +43,20 @@ public class Reader<T extends Serializable> {
     catch (IOException | ClassNotFoundException e) {
       Log.error("Exception while recording object: " + e.getMessage(), e);
       return null;
+    }
+  }
+
+  public void clear() {
+    try {
+      Files.write(
+        path,
+        new byte[0],
+        CREATE,
+        TRUNCATE_EXISTING
+      );
+    }
+    catch (IOException e) {
+      Log.error("Exception while clearing record file: " + e.getMessage(), e);
     }
   }
 }

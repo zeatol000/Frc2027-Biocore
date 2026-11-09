@@ -30,13 +30,9 @@ public class Conf {
 			hardwareArraySize = 0x1000;
 
 		can.forEach(Hardware::unsafeMakeHardware);
+		input.forEach(Hardware::unsafeMakeHardware);
 	}
 
 
 	public static final int hardwareArraySize;
-
-	/** Useless method to run that forces the execution of the static
-	 * initializer/constructor
-	 */
-	public static void forceLoad() {}
 }

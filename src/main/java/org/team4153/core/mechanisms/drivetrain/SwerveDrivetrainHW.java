@@ -50,6 +50,10 @@ public class SwerveDrivetrainHW extends DrivetrainHW<
 			? c.getDouble("drivetrain.maxSpeedMPS")
 			: 7.5;
 
+      double maxRot = c.hasPath("drivetrain.maxAngularSpeedMPS")
+        ? c.getDouble("drivetrain.maxAngularSpeedMPS")
+        : 4 * Math.PI;
+
 		
 		var fl = new SwerveModule(
 			"FrontLeft",
@@ -87,13 +91,14 @@ public class SwerveDrivetrainHW extends DrivetrainHW<
 				: max
 		);
 
-		this(max, fl, fr, bl, br);
+		this(max, maxRot, fl, fr, bl, br);
 
 	}
 
 	// construct by parameters
 	public SwerveDrivetrainHW(
-		double maxSpeedMPS,
+		double maxSpeed,
+		double maxAngularSpeed,
 		SwerveModule fl,
 		SwerveModule fr,
 		SwerveModule bl,
@@ -107,7 +112,8 @@ public class SwerveDrivetrainHW extends DrivetrainHW<
 					SwerveModuleVelocity.struct
 				),
 
-			maxSpeedMPS
+			maxSpeed,
+			maxAngularSpeed
 		);
 
 		this.fl = fl;
@@ -117,7 +123,7 @@ public class SwerveDrivetrainHW extends DrivetrainHW<
 	}
 
 	public void setDesiredVelocities(SwerveModuleVelocity[] vel) {
-		vel = SwerveDriveKinematics.desaturateWheelVelocities(vel, maxSpeedMPS);
+		vel = SwerveDriveKinematics.desaturateWheelVelocities(vel, maxSpeed);
 		fl.setDesiredVelocity(vel[0]);
 		fr.setDesiredVelocity(vel[1]);
 		bl.setDesiredVelocity(vel[2]);

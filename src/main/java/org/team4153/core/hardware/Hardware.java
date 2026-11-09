@@ -44,6 +44,7 @@ public interface Hardware {
 
 		Hardware el = switch (type) {
 			case "motor" -> Motor.unsafeMakeMotor(cfg);
+			case "controller" -> Controller.unsafeMakeController(cfg);
 			default -> {
 				String msg = "Unknown hardware type: "+type;
 				Prelog.error(msg);

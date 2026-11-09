@@ -30,7 +30,7 @@ public abstract class DrivetrainHW<
 > implements Mechanism {
 
 	/** Maximum speed */
-	public final double maxSpeedMPS;
+	public final double maxSpeed, maxAngularSpeed;
 
 	//protected final StructTopic<ChassisAccelerations> chassisAccelerationsTopic =
 	//	NetworkTableInstance
@@ -64,9 +64,11 @@ public abstract class DrivetrainHW<
 	public DrivetrainHW(
 		StructArrayTopic<V> velocityTopic,
 		//StructArrayTopic<A> accelerationTopic,
-		double maxSpeedMPS
+		double maxSpeed,
+		double maxAngularSpeed
 	) {
-		this.maxSpeedMPS = maxSpeedMPS;
+		this.maxSpeed = maxSpeed;
+		this.maxAngularSpeed = maxAngularSpeed;
 		this.velocityTopic = velocityTopic;
 		this.velocityPublisher = velocityTopic.publish();
 		//this.accelerationTopic = accelerationTopic;
