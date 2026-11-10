@@ -1,4 +1,4 @@
-package org.team4153.core.hardware.impl;
+package org.team4153.core.hardware.impl.motor;
 
 import com.revrobotics.ResetMode;
 import com.revrobotics.PersistMode;

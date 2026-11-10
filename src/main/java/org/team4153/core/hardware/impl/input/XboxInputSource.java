@@ -1,4 +1,4 @@
-package org.team4153.core.mechanisms.input.impl;
+package org.team4153.core.hardware.impl.input;
 
 import com.typesafe.config.Config;
 

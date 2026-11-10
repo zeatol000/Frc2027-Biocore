@@ -4,9 +4,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 
 import org.team4153.core.config.Prelog;
-import org.team4153.core.hardware.Hardware;
-import org.team4153.core.hardware.Input;
-import org.team4153.core.mechanisms.input.impl.*;
+import org.team4153.core.hardware.impl.input.XboxInputSource;
 
 /** Controller inputs such as an XBox or PS3 controller. */
 public interface Controller extends Hardware, Input<Controller> {

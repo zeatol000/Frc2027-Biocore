@@ -1,6 +1,5 @@
 package org.team4153.core;
 
-import org.wpilib.command3.Coroutine;
 import org.wpilib.command3.Command;
 import org.wpilib.math.kinematics.SwerveDriveOdometry;
 //import org.wpilib.hardware.imu.OnboardIMU; // gyro
@@ -9,10 +8,9 @@ import org.wpilib.math.kinematics.SwerveDriveOdometry;
 import org.team4153.core.config.Conf;
 import org.team4153.core.config.fromconfig.SwerveUtils;
 import org.team4153.core.hardware.Hardware;
-import org.team4153.core.util.CMD;
 import org.team4153.core.mechanisms.drivetrain.SwerveDrivetrainAPI;
 import org.team4153.core.mechanisms.input.InputProxy;
-import org.team4153.core.mechanisms.input.impl.XboxInputSource;
+import org.team4153.core.hardware.impl.input.XboxInputSource;
 
 /** Default implementation of a robot container.
  * A robot container is what manages high level APIs that make it so your life

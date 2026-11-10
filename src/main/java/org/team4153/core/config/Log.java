@@ -6,8 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigValueType;
@@ -89,6 +91,25 @@ public class Log implements Command {
 			);
 	}
 
+
+  /** Log a message that is constructed in the command. */
+  public static void print(Function<Coroutine, String> fn) {
+    Scheduler
+      .getDefault()
+      .schedule(
+        new Log(fn)
+      );
+  }
+
+  /** Log a message that is constructed in the command. */
+  public static void print(Supplier<String> fn) {
+    Scheduler
+      .getDefault()
+      .schedule(
+        new Log((c) -> fn.get())
+      );
+  }
+
 	/** Log a message if the log level is dev. Formats with dev */
 	public static void dev(String message) {
 		if (logLevel != LogLevel.dev) return;
@@ -125,7 +146,7 @@ public class Log implements Command {
 	}
 
 	/** Log a message with error formatting and an exception */
-	public static void error(String message, Throwable e) {
+	public static void error(String message, Throwable e) { print((c) -> {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("ERR ")
@@ -137,7 +158,7 @@ public class Log implements Command {
 		StackTraceElement[] stack = e.getStackTrace();
 		int len = Math.min(maxStack, stack.length);
 
-		for (int i = 0; i < len; i++) {  // hopefully good formatting.
+		for (int i = 0; i < len; i++) {
 			StackTraceElement elem = stack[i];
 			sb.append("\tat ")
 				.append(elem.getClassName())
@@ -150,22 +171,59 @@ public class Log implements Command {
 				.append('\n');
 		}
 
-		print(sb.toString());
-	}
+    var cause = e.getCause();
+    if (cause != null) {
+      stack = cause.getStackTrace();
+      len = Math.min(maxStack, stack.length);
+
+      sb.append("caused by ")
+        .append(cause)
+        .append('\n');
+
+      for (int i = 0; i < len; i++) {
+        StackTraceElement elem = stack[i];
+        sb.append("\tat ")
+          .append(elem.getClassName())
+          .append("::")
+          .append(elem.getMethodName())
+          .append(" in ")
+          .append(elem.getFileName())
+          .append(':')
+          .append(elem.getLineNumber())
+          .append('\n');
+      }
+    }
+
+    return sb.toString();
+  });}
 
 
 // INSTANCE
 	public Log(String message) {
 		this.message = message;
+    this.fn = null;
 	}
 
+  public Log(Function<Coroutine, String> fn) {
+    this.message = null;
+    this.fn = fn;
+  }
+
 	public final String message;
+  public final Function<Coroutine, String> fn;
 
 	public void run(Coroutine coroutine) {
+    String message = this.message;
+
+    if (message == null) {
+      if (fn == null) return; // should never happen
+
+      message = fn.apply(coroutine);
+    }
+
 		System.out.println(message);
 
 		if (logFile == null) {
-			coroutine.yield();
 			return;
 		}
 

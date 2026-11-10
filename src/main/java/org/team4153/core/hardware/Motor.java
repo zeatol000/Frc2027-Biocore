@@ -3,12 +3,10 @@ package org.team4153.core.hardware;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 
+import org.team4153.core.hardware.impl.motor.SparkMaxMotor;
 import org.wpilib.math.geometry.Rotation2d;
 
 import org.team4153.core.config.Prelog;
-import org.team4153.core.hardware.CAN;
-import org.team4153.core.hardware.Hardware;
-import org.team4153.core.hardware.impl.*;
 
 /** Physical motors attached to the CAN system.
  *

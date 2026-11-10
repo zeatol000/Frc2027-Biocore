@@ -1,14 +1,9 @@
 package org.team4153.core.mechanisms.led;
 
+import java.io.Serializable;
+
 /** Color serialization and utilities */
 public class Color {
-
-	/** Default RGB color */
-	public record RGB(int r, int g, int b) {}
-	
-	/** RGB color with Alpha */
-	public record RGBA(int r, int g, int b, int a) {}
-
 
 	/** Store RGBA as bytes and pack into an int */
 	public static int pack(
@@ -40,7 +35,7 @@ public class Color {
 
 	/** Nice packed colors */
 	public static final int
-		RED	= 0xff0000ff,
+		RED	  = 0xff0000ff,
 		BLUE	= 0xff00ff,
 		GREEN	= 0xffff,
 		BLACK	= 0xff,

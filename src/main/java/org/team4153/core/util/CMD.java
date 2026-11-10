@@ -14,42 +14,41 @@ public class CMD {
   public static final Command empty = of(() -> {});
 
   /** Makes a command of the given parameters with lambda () -> void */
-  public static Command of(Effect e) {
+  public static Command of(Runnable fn) {
     return of(
-      e,
-      "Command[" + System.identityHashCode(e) + ']',
+      fn,
+      "Command[" + System.identityHashCode(fn) + ']',
       emptyRequirements
     );
   }
 
   /** Makes a command of the given parameters with lambda () -> void */
-  public static Command of(Effect e, String name) {
+  public static Command of(Runnable fn, String name) {
     return of(
-      e,
+      fn,
       name,
       emptyRequirements
     );
   }
 
   /** Makes a command of the given parameters with lambda () -> void */
-  public static Command of(Effect e, Set<Mechanism> requirements) {
+  public static Command of(Runnable fn, Set<Mechanism> requirements) {
     return of(
-      e,
-      "Command[" + System.identityHashCode(e) + ']',
+      fn,
+      "Command[" + System.identityHashCode(fn) + ']',
       requirements
     );
   }
 
   /** Makes a command of the given parameters with lambda () -> void */
   public static Command of(
-    Effect e,
+    Runnable fn,
     String name,
     Set<Mechanism> requirements
   ) {
     return new Command(){
       public void run(Coroutine coroutine) {
-        try { e.apply(); }
-        finally { coroutine.yield(); }
+        fn.run();
       }
       public String name() {
         return name;
@@ -97,8 +96,7 @@ public class CMD {
   ) {
     return new Command(){
       public void run(Coroutine coroutine) {
-        try { fn.accept(coroutine); }
-        finally { coroutine.yield(); }
+        fn.accept(coroutine);
       }
       public String name() {
         return name;
