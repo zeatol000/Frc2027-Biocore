@@ -10,14 +10,13 @@ import org.wpilib.networktables.StructTopic;
 
 /** Drivetrain hardware api.
  *
- * TYPE PARAMETERS:
- * D		a module of the drivetrain, such as a swerve
- * A		data that determines the acceleration of a module
- * V 		data that determines the velocity of a module
- * P		data that determines the position of a module
- * K		the kinematics class
- * O		the odometry class
- * O3		the odometry 3d class
+ * @param <D>		a module of the drivetrain, such as a swerve
+ * @param <A>		data that determines the acceleration of a module
+ * @param <V>   data that determines the velocity of a module
+ * @param <P>		data that determines the position of a module
+ * @param <K>		the kinematics class
+ * @param <O>		the odometry class
+ * @param <O3>	the odometry 3d class
  */
 public abstract class DrivetrainHW<
 	D,

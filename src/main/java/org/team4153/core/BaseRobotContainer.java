@@ -13,12 +13,12 @@ import org.team4153.core.mechanisms.input.InputProxy;
 import org.team4153.core.hardware.impl.input.XboxInputSource;
 
 /** Default implementation of a robot container.
- * A robot container is what manages high level APIs that make it so your life
- * isn't painful. The general idea is: the Robot handles low level API and
+ * A robot container is what manages high-level APIs that make it so your life
+ * isn't painful. The general idea is: the Robot handles low-level API and
  * calls commands on the container.
  *
- * Why we do this instead of having one huge class is simple: so you don't have
- * one 5 thousand line file that is a nightmare to debug.
+ * Why we do this instead of having one huge class is straightforward: so you don't
+ * have a 5-thousand-line file that is a nightmare to debug.
  */
 public class BaseRobotContainer implements RobotContainer {
 	//public static final String RECORDING_FILE = "recording.csv";
@@ -51,10 +51,10 @@ public class BaseRobotContainer implements RobotContainer {
 		swerves = new SwerveDrivetrainAPI(
 			odometry,
 			kinematics,
-			() -> -inputs.src.lX(),
-			() -> -inputs.src.lY(),
-			() -> inputs.src.rX(),
-			() -> inputs.src.rTrigger()
+			() -> -inputs.leftX(),
+			() -> -inputs.leftY(),
+			inputs::rightX,
+			inputs::rightTrigger
 		);
 
 		swerves.drivetrain.setDefaultCommand(swerves.driveCommand());

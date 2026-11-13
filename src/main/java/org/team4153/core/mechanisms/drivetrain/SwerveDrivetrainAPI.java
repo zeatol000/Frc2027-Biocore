@@ -3,9 +3,6 @@ package org.team4153.core.mechanisms.drivetrain;
 import java.util.function.DoubleSupplier;
 
 import org.wpilib.math.controller.PIDController;
-import org.wpilib.math.filter.SlewRateLimiter;
-import org.wpilib.math.geometry.Rotation2d;
-import org.wpilib.math.geometry.Translation2d;
 import org.wpilib.math.kinematics.*;
 
 import static org.team4153.core.config.Conf.config;
@@ -26,10 +23,10 @@ public class SwerveDrivetrainAPI extends DrivetrainAPI<
   public SwerveDrivetrainAPI(
     SwerveDriveOdometry odometry,
     SwerveDriveKinematics kinematics,
-    DoubleSupplier xsup,
-    DoubleSupplier ysup,
-    DoubleSupplier osup,
-    DoubleSupplier triggersup
+    DoubleSupplier xSupplier,
+    DoubleSupplier ySupplier,
+    DoubleSupplier omegaSupplier,
+    DoubleSupplier triggerSupplier
   ) {
     super(
       new SwerveDrivetrainHW(),
@@ -46,10 +43,10 @@ public class SwerveDrivetrainAPI extends DrivetrainAPI<
           ? config.getDouble("drivetrain.pid.kd")
           : 0
       ),
-      xsup,
-      ysup,
-      osup,
-      triggersup,
+      xSupplier,
+      ySupplier,
+      omegaSupplier,
+      triggerSupplier,
       config.hasPath("drivetrain.maxAcceleration")
         ? config.getDouble("drivetrain.maxAcceleration")
         : 5,
@@ -63,10 +60,10 @@ public class SwerveDrivetrainAPI extends DrivetrainAPI<
   }
 
   public void drive() {
-    double xSpeed = xsup.getAsDouble();
-    double ySpeed = ysup.getAsDouble();
-    double oSpeed = osup.getAsDouble();
-    double boost = triggersup.getAsDouble();
+    double xSpeed = xSupplier.getAsDouble();
+    double ySpeed = ySupplier.getAsDouble();
+    double oSpeed = omegaSupplier.getAsDouble();
+    double boost = triggerSupplier.getAsDouble();
 
     if (boostEnabled) {
       xSpeed /= 2;
@@ -77,15 +74,15 @@ public class SwerveDrivetrainAPI extends DrivetrainAPI<
       oSpeed += ySpeed * boost;
     }
 
-    xSpeed = xlim.calculate(xSpeed * maxSpeed);
-    ySpeed = ylim.calculate(ySpeed * maxSpeed);
-    oSpeed = turnlim.calculate(oSpeed * maxAngularSpeed);
+    xSpeed = xLimiter.calculate(xSpeed * maxSpeed);
+    ySpeed = yLimiter.calculate(ySpeed * maxSpeed);
+    oSpeed = turnLimiter.calculate(oSpeed * maxAngularSpeed);
 
     ChassisVelocities cv = new ChassisVelocities(xSpeed, ySpeed, oSpeed);
 
     drivetrain.chassisVelocitiesPublisher.set(cv);
 
-    SwerveModuleVelocity vels[] = kinematics.toSwerveModuleVelocities(cv);
-    drivetrain.setDesiredVelocities(vels);
+    SwerveModuleVelocity velocities[] = kinematics.toSwerveModuleVelocities(cv);
+    drivetrain.setDesiredVelocities(velocities);
   }
 }

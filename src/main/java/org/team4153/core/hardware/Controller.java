@@ -5,9 +5,15 @@ import com.typesafe.config.ConfigException;
 
 import org.team4153.core.config.Prelog;
 import org.team4153.core.hardware.impl.input.XboxInputSource;
+import org.team4153.core.util.SDLController;
 
 /** Controller inputs such as an XBox or PS3 controller. */
-public interface Controller extends Hardware, Input<Controller> {
+public interface Controller
+	extends
+		Hardware,
+		Input<Controller>,
+		SDLController
+{
 	
 	/** The port of which this controller resides */
 	int PORT();

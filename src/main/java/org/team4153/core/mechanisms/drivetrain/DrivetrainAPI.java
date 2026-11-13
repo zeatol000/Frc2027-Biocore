@@ -6,8 +6,6 @@ import java.util.function.DoubleSupplier;
 import org.wpilib.command3.Command;
 import org.wpilib.math.controller.PIDController;
 import org.wpilib.math.filter.SlewRateLimiter;
-import org.wpilib.math.geometry.Rotation2d;
-import org.wpilib.math.geometry.Translation2d;
 import org.wpilib.math.kinematics.Kinematics;
 import org.wpilib.math.kinematics.Odometry;
 import org.wpilib.math.kinematics.Odometry3d;
@@ -15,7 +13,8 @@ import org.wpilib.math.kinematics.Odometry3d;
 import org.team4153.core.util.CMD;
 
 /** The class that connects inputs from the user (i.e., the controller) and
- * routes it to the DrivetrainHW. */
+ * routes it to the DrivetrainHW.
+ */
 public abstract class DrivetrainAPI<
 	D,
 	A,
@@ -29,10 +28,10 @@ public abstract class DrivetrainAPI<
 	public final HW drivetrain;
 
 	/** Suppliers of joystick inputs */
-	public final DoubleSupplier  xsup, ysup, osup, triggersup;
+	public final DoubleSupplier xSupplier, ySupplier, omegaSupplier, triggerSupplier;
 
 	/** Limiters of joystick inputs */
-	public final SlewRateLimiter xlim, ylim, turnlim;
+	public final SlewRateLimiter xLimiter, yLimiter, turnLimiter;
 
 	/** Odometry */
 	public final O odometry;
@@ -53,27 +52,27 @@ public abstract class DrivetrainAPI<
 		O odometry,
 		K kinematics,
 		PIDController pid,
-		DoubleSupplier xsup,
-		DoubleSupplier ysup,
-		DoubleSupplier osup,
-		DoubleSupplier triggersup,
+		DoubleSupplier xSupplier,
+		DoubleSupplier ySupplier,
+		DoubleSupplier omegaSupplier,
+		DoubleSupplier triggerSupplier,
 		double maxAcceleration,
 		double maxAngularAcceleration
 	) {
 		this.drivetrain = drivetrain;
 		this.odometry = odometry;
 		this.kinematics = kinematics;
-		this.xsup = xsup;
-		this.ysup = ysup;
-		this.osup = osup;
-		this.triggersup = triggersup;
+		this.xSupplier = xSupplier;
+		this.ySupplier = ySupplier;
+		this.omegaSupplier = omegaSupplier;
+		this.triggerSupplier = triggerSupplier;
 		this.maxSpeed = drivetrain.maxSpeed;
 		this.maxAngularSpeed = drivetrain.maxAngularSpeed;
 		this.maxAcceleration = maxAcceleration;
 		this.maxAngularAcceleration = maxAngularAcceleration;
-		this.xlim = new SlewRateLimiter(maxAcceleration);
-		this.ylim = new SlewRateLimiter(maxAcceleration);
-		this.turnlim = new SlewRateLimiter(maxAngularAcceleration);
+		this.xLimiter = new SlewRateLimiter(maxAcceleration);
+		this.yLimiter = new SlewRateLimiter(maxAcceleration);
+		this.turnLimiter = new SlewRateLimiter(maxAngularAcceleration);
 		this.pid = pid;
 		pid.enableContinuousInput(-Math.PI, Math.PI);
 	}

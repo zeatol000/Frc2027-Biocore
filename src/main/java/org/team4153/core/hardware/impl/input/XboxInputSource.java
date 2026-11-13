@@ -42,86 +42,115 @@ public class XboxInputSource extends InputSource implements Controller {
 	public boolean a() {
 		return controller.getAButton();
 	}
+	public boolean south() {
+		return controller.getAButton();
+	}
 
 	public boolean b() {
+		return controller.getBButton();
+	}
+	public boolean east() {
 		return controller.getBButton();
 	}
 
 	public boolean x() {
 		return controller.getXboxButton();
 	}
+	public boolean west() {
+		return controller.getXButton();
+	}
 
 	public boolean y() {
 		return controller.getYButton();
 	}
+	public boolean north() {
+		return controller.getYButton();
+	}
 
-	public boolean dpadDown() {
+
+	public boolean dPadDown() {
 		return controller.getDpadDownButton();
 	}
 
-	public boolean dpadLeft() {
+	public boolean dPadLeft() {
 		return controller.getDpadLeftButton();
 	}
 
-	public boolean dpadRight() {
+	public boolean dPadRight() {
 		return controller.getDpadRightButton();
 	}
 
-	public boolean dpadUp() {
+	public boolean dPadUp() {
 		return controller.getDpadUpButton();
 	}
 
-	public boolean lBumper() {
+
+	public boolean leftBumper() {
 		return controller.getLeftBumperButton();
 	}
 
-	public boolean lStick() {
-		return controller.getLeftStickButton();
-	}
-
-	public boolean rBumper() {
+	public boolean rightBumper() {
 		return controller.getRightBumperButton();
 	}
 
-	public boolean rStick() {
+
+	public boolean leftStick() {
+		return controller.getLeftStickButton();
+	}
+
+	public boolean rightStick() {
 		return controller.getRightStickButton();
 	}
 
+
 	public boolean menu() {
+		return controller.getMenuButton();
+	}
+	public boolean back() {
 		return controller.getMenuButton();
 	}
 
 	public boolean view() {
 		return controller.getViewButton();
 	}
+	public boolean start() {
+		return controller.getViewButton();
+	}
 
 	public boolean xbox() {
 		return controller.getXboxButton();
 	}
-
-	public double lTrigger() {
-		return controller.getLeftTrigger();
+	public boolean guide() {
+		return controller.getXboxButton();
 	}
 
-	public double lX() {
+
+	public double leftX() {
 		return controller.getLeftX();
 	}
 
-	public double lY() {
+	public double leftY() {
 		return controller.getLeftY();
 	}
 
-	public double rTrigger() {
-		return controller.getRightTrigger();
-	}
-
-	public double rX() {
+	public double rightX() {
 		return controller.getRightX();
 	}
 
-	public double rY() {
+	public double rightY() {
 		return controller.getRightY();
 	}
+
+
+	public double leftTrigger() {
+		return controller.getLeftTrigger();
+	}
+
+	public double rightTrigger() {
+		return controller.getRightTrigger();
+	}
+
+
 
 
 	public int ID() {

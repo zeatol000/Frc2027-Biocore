@@ -9,10 +9,6 @@ import org.wpilib.math.kinematics.SwerveDriveKinematics;
 import org.wpilib.math.kinematics.SwerveDriveOdometry;
 import org.wpilib.math.kinematics.SwerveDriveOdometry3d;
 import org.wpilib.networktables.NetworkTableInstance;
-import org.wpilib.networktables.StructArrayPublisher;
-import org.wpilib.networktables.StructArrayTopic;
-import org.wpilib.networktables.StructPublisher;
-import org.wpilib.networktables.StructTopic;
 
 import org.team4153.core.config.Conf;
 import org.team4153.core.hardware.Hardware;
