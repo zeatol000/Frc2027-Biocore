@@ -1,0 +1,870 @@
+JavaDoc: https://github.wpilib.org/allwpilib/docs/beta/java/index.html
+
+
+- quick lookup
+- detailed things in 02 WPILib and FRC Introduction
+- WPILib tree
+
+
+## WPILib 2027 Package Tree
+This is flattening all of the packages in [the module tree](<#WPILib 2027 Module Tree>) to just be packages.
+- org.wpilib
+	- annotation
+	- apriltag
+		- jni
+	- backend
+	- command2
+		- button
+		- sysid
+	- command2
+		- button
+		- proto
+		- sysid
+	- datalog
+	- drive
+	- drivers
+		- motor
+		- odometry
+	- driverstation
+		- internal
+	- epilogue
+		- logging
+			- errors
+	- event
+	- fields
+	- framework
+	- hal
+		- can
+		- simulation
+		- struct
+		- util
+	- hardware
+		- accelerometer
+		- bus
+		- counter
+		- discrete
+		- expansionhub
+		- imu
+		- led
+		- motor
+		- pneumatic
+		- power
+		- range
+		- rotation
+	- internal
+	- math
+		- autodiff
+		- controller
+			- proto
+				- detail
+			- struct
+		- estimator
+		- filter
+			- internal
+		- geometry
+			- proto
+				- detail
+			- struct
+		- interpolation
+		- jni
+		- kinematics
+			- proto
+				- detail
+			- struct
+		- linalg
+			- proto
+				- detail
+			- struct
+		- numbers
+		- optimization
+			- ocp
+			- solver
+		- path
+		- random
+		- shape
+			- proto
+				- detail
+			- struct
+		- spline
+			- proto
+				- detail
+			- struct
+		- system
+			- proto
+				- detail
+			- struct
+		- trajectory
+			- constraint
+			- proto
+				- detail
+			- struct
+		- util
+	- net
+	- networktables
+	- opmode
+	- preferences
+	- romi
+	- simulation
+	- smartdashboard
+	- sysid
+	- system
+	- telemetry
+		- util
+	- tunable
+		- util
+	- units
+		- collections
+		- measure
+	- util
+		- cleanup
+		- collections
+			- prefixmap
+		- concurrent
+		- container
+		- function
+		- option
+		- protobuf
+		- runtime
+		- struct
+			- parser
+	- vision
+		- camera
+			- raw
+		- process
+		- stream
+	- xrp
+
+## WPILib 2027 Module Tree
+- [wpilib](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib/module-summary.html)
+	- description:
+		The WPILib module.
+	- indirect exports:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.epilogue
+		- wpilib.hal
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.epilogue
+		- wpilib.hal
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- transitive wpilib.core
+		- transitive wpilib.epilogue
+		- transitive wpilib.hal
+		- transitive wpilib.math
+		- transitive wpilib.ntcore
+		- transitive wpilib.telemetry
+		- transitive wpilib.tunable
+		- transitive wpilib.units
+		- transitive wpilib.util
+	- indirect requires:
+		- transitive wpilib.datalog
+- [wpilib.annotation](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.annotation/module-summary.html)
+	- description:
+		Defines standard annotations for use in WPILib-based projects.
+	- packages:
+		- org.wpilib.annotation
+			- exported to: all modules
+			- opened to: all modules
+- [wpilib.apriltag](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.apriltag/module-summary.html)
+	- description:
+		Defines APIs for detecting AprilTag fiducials and calculating pose estimates based on AprilTag locations.
+	- packages:
+		- org.wpilib.vision.apriltag
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.vision.apriltag.jni
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.math
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.math
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- transitive wpilib.math
+		- transitive wpilib.util
+	- indirect requires:
+		- transitive wpilib.telemetry
+		- transitive wpilib.tunable
+		- transitive wpilib.units
+- [wpilib.cameraserver](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.cameraserver/module-summary.html)
+	- description:
+		Defines APIs for streaming cameras from the robot for use by dashboards and coprocessors for running OpenCV pipelines.
+	- packages:
+		- org.wpilib.vision.process
+			- exported to: all modules
+			- opened to: all modules
+			- description:
+				Classes in the org.wpilib.vision.process package are designed to simplify using OpenCV vision processing code from a robot program.
+		- org.wpilib.vision.stream
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.cscore
+		- wpilib.datalog
+		- wpilib.ntcore
+	- indirect opens:
+		- wpilib.cscore
+		- wpilib.datalog
+		- wpilib.ntcore
+	- requires:
+		- transitive wpilib.cscore
+		- transitive wpilib.ntcore
+	- indirect requires:
+		- transitive wpilib.datalog
+- [wpilib.command2](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.command2/module-summary.html)
+	- description:
+		Defines APIs for event-based programming and concurrent control of mechanisms.
+	- packages:
+		- org.wpilib.command2
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.command2.button
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.command2.sysid
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.core
+		- wpilib.math
+		- wpilib.units
+	- indirect opens:
+		- wpilib.core
+		- wpilib.math
+		- wpilib.units
+	- requires:
+		- transitive wpilib.core
+		- transitive wpilib.units
+	- indirect requires:
+		- transitive wpilib.math
+- [wpilib.command3](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.command3/module-summary.html)
+	- description:
+		Defines APIs for coroutine-based, event-driven command scheduling and mechanism coordination.
+	- packages:
+		- org.wpilib.command3
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.command3.button
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.command3.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.command3.sysid
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.ntcode
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- transitive wpilib.core
+		- transitive wpilib.ntcore
+		- transitive wpilib.units
+		- transitive wpilib.util
+	- indirect requires:
+		- transitive wpilib.datalog
+		- transitive wpilib.telemetry
+		- transitive wpilib.tunable
+- [wpilib.core](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.core/module-summary.html)
+	- description:
+		Defines APIs for interacting with robot sensors and actuators, dashboard applications, and high-level program control frameworks.
+	- packages:
+		- org.wpilib.backend
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.drive
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.driverstation
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.driverstation.internal
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.event
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.framework
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.accelerometer
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.bus
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.counter
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.discrete
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.expansionhub
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.imu
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.led
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.motor
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.pneumatic
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.power
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.range
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.rotation
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.internal
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.opmode
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.preferences
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.simulation
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.smartdashboard
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.sysid
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.system
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.datalog
+		- wpilib.hal
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.datalog
+		- wpilib.hal
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- transitive wpilib.hal
+		- transitive wpilib.math
+		- transitive wpilib.ntcore
+		- transitive wpilib.telemetry
+		- transitive wpilib.tunable
+		- transitive wpilib.units
+		- transitive wpilib.util
+	- indirect requires:
+		- transitive wpilib.datalog
+- [wpilib.cscore](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.cscore/module-summary.html)
+	- description:
+		Defines APIs for connecting to and reading images from cameras connected to the robot and for configuring those cameras.
+	- packages:
+		- org.wpilib.vision.camera
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.vision.camera.raw
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.util
+	- indirect opens:
+		- wpilib.util
+	- requires:
+		- transitive wpilib.util
+- [wpilib.datalog](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.datalog/module-summary.html)
+	- description:
+		Defines APIs for writing and reading WPILib data logs.
+	- packages
+		- org.wpilib.datalog
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.util
+	- indirect opens:
+		- wpilib.util
+	- requires:
+		- transitive wpilib.util
+- [wpilib.drivers](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.drivers/module-summary.html)
+	- description:
+		WPILib third-party device drivers.
+	- packages:
+		- org.wpilib.drivers.motor
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.drivers.odometry
+			- WPILib odometry drivers
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+	- indirect opens:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.units
+	- requires:
+		- wpilib.core
+		- wpilib.math
+		- wpilib.units
+	- indirect requires:
+		- wpilib.datalog
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+- [wpilib.epilogue](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.epilogue/module-summary.html)
+	- description:
+		Provides APIs for telemetry and data logging, used by code generated based on the presence of the Logged annotation on classes, fields, and methods. The epilogue annotation processor - in a separate module - performs the actual code generation.
+	- packages:
+		- org.wpilib.epilogue
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.epilogue.logging
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.epilogue.logging.errors
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.hal
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.hal
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- wpilib.core
+		- wpilib.telemetry
+		- wpilib.units
+	- indirect requires:
+		- wpilib.datalog
+		- wpilib.hal
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.tunable
+		- wpilib.util
+- [wpilib.gamefields](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.gamefields/module-summary.html)
+	- description:
+		Defines APIs for structured game fields definitions and their JSON serialization support.
+	- packages:
+		- org.wpilib.fields
+	- indirect exports:
+		- wpilib.math
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.math
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- wpilib.math
+	- indirect requires:
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+- [wpilib.hal](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.hal/module-summary.html)
+	- description:
+		Defines APIs for interacting with hardware through the C++ layer and JNI bindings. Most robot programs don't need to use this directly and should use the 'wpilib' module instead.
+	- packages:
+		- org.wpilib.hardware.hal
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.hal.can
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.hal.simulation
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.hal.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.hardware.hal.util
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.util
+	- indirect opens:
+		- wpilib.util
+	- requires:
+		- wpilib.util
+- [wpilib.math](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.math/module-summary.html)
+	- description:
+		Defines APIs for geometry, kinematics, odometry, path planning, control algorithms, and physics simulators for simple mechanisms..
+	- packages:
+		- org.wpilib.math.autodif
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.controller
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.contoller.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.controller.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.controller.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.estimator
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.filter
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.filter.internal
+			- exported to: none
+			- opened to: all modules
+		- org.wpilib.math.geometry
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.geometry.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.geometry.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.geometry.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.interpolation
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.jni
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.kinematics
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.kinematics.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.kinematics.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.kinematics.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.linalg
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.linalg.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.linalg.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.linalg.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.numbers
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.optimization
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.optimization.ocp
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.optimization.solver
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.path
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.random
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.shape
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.shape.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.shape.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.shape.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.spline
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.spline.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.spline.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.spline.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.system
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.system.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.system.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.system.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.trajectory
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.trajectory.constraint
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.trajectory.proto
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.trajectory.proto.detail
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.trajectory.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.math.util
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+	- indirect opens:
+		- wpilib.units
+	- requires:
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+- [wpilib.net](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.net/module-summary.html)
+	- description:
+		Defines low-level networking utility APIs used by WPILib communication components.
+	- packages:
+		- org.wpilib.net
+			- exported to: all modules
+			- opened to: all modules
+- [wpilib.ntcore](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.ntcore/module-summary.html)
+	- description:
+		Defines APIs for sending and receiving data over the robot network for communication with coprocessors and the driver station.
+	- packages:
+		- org.wpilib.networktables
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.datalog
+	- indirect opens:
+		- wpilib.datalog
+	- requires:
+		- wpilib.datalog
+- [wpilib.romi](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.romi/module-summary.html)
+	- description:
+		Defines APIs for using WPILib to control Romi robots.
+	- packages:
+		- org.wpilib.romi
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- wpilib.core
+	- indirect requires:
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+- [wpilib.telemetry](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.telemetry/module-summary.html)
+	- description:
+		A unified, extensible, data-oriented, output-only telemetry API for WPILib for hierarchical structure and flexible backend implementation.
+	- packages:
+		- org.wpilib.telemetry
+		- org.wpilib.telemetry.util
+	- indirect exports:
+		- wpilib.util
+	- indirect opens:
+		- wpilib.util
+	- requires:
+		- wpilib.util
+- [wpilib.tunable](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.tunable/module-summary.html)
+	- description:
+		Tunables is WPILib's runtime adjustment API for values that most robot programs want to expose to dashboards or debug tools. It lets code declare adjustable values, grouped complex objects, and chooser-style selections while routing storage and updates through pluggable backends.
+	- packages:
+		- org.wpilib.tunable
+		- org.wpilib.tunable.util
+	- indirect exports:
+		- wpilib.util
+	- indirect opens:
+		- wpilib.util
+	- requires:
+		- wpilib.util
+- [wpilib.units](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.units/module-summary.html)
+	- description:
+		Defines APIs for type-safe unit definitions and math operations.
+	- packages:
+		- org.wpilib.units
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.units.collections
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.units.measures
+			- exported to: all modules
+			- opened to: all modules
+- [wpilib.util](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.util/module-summary.html)
+	- description:
+		Defines miscellaneous APIs for concurrency, data logging, lambda functions, binary serialization and deserialization, native library interactions, and error reporting.
+	- packages:
+		- org.wpilib.util
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.cleanup
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.collections
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.collections.prefixmap
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.concurrent
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.container
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.function
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.option
+			- description:
+				Provides APIs for working with optional data in a null safe manner
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.protobuf
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.runtime
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.struct
+			- exported to: all modules
+			- opened to: all modules
+		- org.wpilib.util.struct.parser
+			- exported to: all modules
+			- opened to: all modules
+- [wpilib.xrp](https://github.wpilib.org/allwpilib/docs/beta/java/wpilib.xrp/module-summary.html)
+	- description:
+		Defines APIs for using WPILib to control XRP robots.
+	- packages:
+		- org.wpilib.xrp
+			- exported to: all modules
+			- opened to: all modules
+	- indirect exports:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util
+	- indirect opens:
+		- wpilib.core
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.units
+		- wpilib.util
+	- requires:
+		- wpilib.core
+	- indirect requires:
+		- wpilib.datalog
+		- wpilib.math
+		- wpilib.ntcore
+		- wpilib.telemetry
+		- wpilib.tunable
+		- wpilib.units
+		- wpilib.util

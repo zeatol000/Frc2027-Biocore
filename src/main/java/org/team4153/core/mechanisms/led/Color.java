@@ -1,8 +1,5 @@
 package org.team4153.core.mechanisms.led;
 
-import java.io.Serializable;
-
-/** Color serialization and utilities */
 public class Color {
 
 	/** Store RGBA as bytes and pack into an int */

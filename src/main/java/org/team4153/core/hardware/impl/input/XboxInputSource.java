@@ -106,16 +106,16 @@ public class XboxInputSource extends InputSource implements Controller {
 	public boolean menu() {
 		return controller.getMenuButton();
 	}
-	public boolean back() {
-		return controller.getMenuButton();
-	}
+  public boolean start() {
+    return controller.getMenuButton();
+  }
 
 	public boolean view() {
 		return controller.getViewButton();
 	}
-	public boolean start() {
-		return controller.getViewButton();
-	}
+  public boolean back() {
+    return controller.getViewButton();
+  }
 
 	public boolean xbox() {
 		return controller.getXboxButton();
@@ -125,29 +125,29 @@ public class XboxInputSource extends InputSource implements Controller {
 	}
 
 
-	public double leftX() {
-		return controller.getLeftX();
+	public float leftX() {
+		return (float) controller.getLeftX();
 	}
 
-	public double leftY() {
-		return controller.getLeftY();
+	public float leftY() {
+		return (float) controller.getLeftY();
 	}
 
-	public double rightX() {
-		return controller.getRightX();
+	public float rightX() {
+		return (float) controller.getRightX();
 	}
 
-	public double rightY() {
-		return controller.getRightY();
+	public float rightY() {
+		return (float) controller.getRightY();
 	}
 
 
-	public double leftTrigger() {
-		return controller.getLeftTrigger();
+	public float leftTrigger() {
+		return (float) controller.getLeftTrigger();
 	}
 
-	public double rightTrigger() {
-		return controller.getRightTrigger();
+	public float rightTrigger() {
+		return (float) controller.getRightTrigger();
 	}
 
 

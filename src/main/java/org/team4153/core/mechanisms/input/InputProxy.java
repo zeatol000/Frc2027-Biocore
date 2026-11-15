@@ -112,33 +112,33 @@ public class InputProxy<T extends InputSource> implements SDLController {
 
 
 	/** Left joystick horizontal. Negative values correspond to right. */
-	public double leftX() {
+	public float leftX() {
 		return src.leftX();
 	}
 
 	/** Left joystick vertical. Negative values correspond to down. */
-	public double leftY() {
+	public float leftY() {
 		return src.leftY();
 	}
 
 	/** Right joystick horizontal. Negative values correspond to right. */
-	public double rightX() {
+	public float rightX() {
 		return src.rightX();
 	}
 
 	/** Right joystick vertical. Negative values correspond to down. */
-	public double rightY() {
+	public float rightY() {
 		return src.rightY();
 	}
 
 
 	/** Left trigger / L2. Nonnegative. */
-	public double leftTrigger() {
+	public float leftTrigger() {
 		return src.leftTrigger();
 	}
 
 	/** Right trigger / R2. Nonnegative. */
-	public double rightTrigger() {
+	public float rightTrigger() {
 		return src.rightTrigger();
 	}
 }

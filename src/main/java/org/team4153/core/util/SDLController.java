@@ -56,21 +56,21 @@ public interface SDLController {
 
 
   /** Left joystick horizontal. Negative values correspond to right. */
-  double leftX();
+  float leftX();
 
   /** Left joystick vertical. Negative values correspond to down. */
-  double leftY();
+  float leftY();
 
   /** Right joystick horizontal. Negative values correspond to right. */
-  double rightX();
+  float rightX();
 
   /** Right joystick vertical. Negative values correspond to down. */
-  double rightY();
+  float rightY();
 
 
   /** Left trigger / L2. Nonnegative. */
-  double leftTrigger();
+  float leftTrigger();
 
   /** Right trigger / R2. Nonnegative. */
-  double rightTrigger();
+  float rightTrigger();
 }

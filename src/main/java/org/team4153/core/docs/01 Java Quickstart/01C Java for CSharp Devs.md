@@ -1,0 +1,26 @@
+
+- C roots of both
+- C#
+	- namespace Foo;
+	- using Bar;
+	- static void Main(string\[\] args) {}
+	- Console.writeLine("");
+	- lowercase aliases for types (string, int, bool)
+	- class Dog : Animal, Pet
+	- const int X = 5;             or `readonly`
+	- PascalCase
+	- final methods by default
+	- unchecked exceptions
+	- user defined types (struct), nullable values (int?), and generics stay at runtime
+- Java
+	- package com.foo;
+	- import com.bar;
+	- public static void main(String\[\] args) {}
+	- System.out.println("hi");
+	- upper case most of the time && lower case primitives
+	- class Dog extends Animal implements Pet
+	- final int x = 5;
+	- camelCase
+	- virtual methods by default
+	- verified exceptions
+	- separates primitives from objects, and type erasure

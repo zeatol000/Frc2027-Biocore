@@ -15,27 +15,22 @@ the core has not been prepared for.
 
 ---
 ## Subpackages
-**auto**:
+**auto**:  
 Utilities for auto.
 
-**collection**:
-Ever used an `ArrayList`? That's a collection. It stores multiple values of the
-given type. This package stores other collections. Do note that not all
-collections store multiple values.
+**config**:  
+What makes this bot so special; HOCON configuration.
 
-**config**:
-Configuration utilities.
-
-**hardware**:
+**hardware**:  
 Contains interfaces and classes that correspond to different hardware elements
 such as motors and the radio.
 
-**svc**:
-Code for dealing with or being the supervising laptop (driver's station).
+**mechanisms**:  
+Mechanism interfaces and classes for a robot. A subsystem could literally be
+anything that does stuff. E.g., a shooter, some LEDs, the drivetrain itself.
 
-**systems**:
-Subsystem interfaces and classes for a robot. A subsystem could literally be
-anything that does stuff. E.g., a shooter, a funnel, the drivetrain itself.
+**svc**:  
+Code for dealing with or being the supervising laptop (driver's station).
 
 **util**:
 General utilities.
@@ -160,7 +155,7 @@ Here is an example of the types you see versus the types the JVM sees:
 | short        | S                     |                                                 |
 | boolean      | Z                     | booleans sometimes don't exist                  |
 | void         | V                     | can only be used in the return types of methods |
-| Class        | Lpackage/to/Class;    | the full path to the Class, wrapped in 'L;'     |
+| Class        | Lpackage/to/Class;    | the full path to the class, wrapped in 'L;'     |
 | String       | Ljava/lang/String;    |                                                 |
 | ArrayList<A> | Ljava/util/ArrayList; | erasure at its finest                           |
 | byte[\]      | [B                    | arrays keep their types                         |

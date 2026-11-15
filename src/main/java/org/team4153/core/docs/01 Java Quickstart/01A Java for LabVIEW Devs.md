@@ -1,0 +1,8 @@
+
+| Concept                | LabVIEW (Visual Dataflow)                                                                                 | Java (Object-Oriented / Text)                                                                                                         |
+| ---------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Execution Order**    | **Dataflow-driven**: Nodes execute when all required inputs arrive (parallel by default).                 | **Sequential / Procedural**: Lines execute top-to-bottom unless control structures (loops, if/else, threads) alter flow.              |
+| **Data Types & Wires** | Wires carry distinct colors/thicknesses for scalars, arrays, and clusters; types are visual and explicit. | Strongly typed text; classes, interfaces, primitives (`int`, `double`), and collections (`List`, `Map`).                              |
+| **State Management**   | Shift registers, feedback nodes, or global/functional global variables.                                   | Object fields (instance variables), local variables, or thread-safe concurrency utilities.                                            |
+| **UI & Logic**         | Front panel controls/indicators are built directly into the VI block diagram.                             | Separated concerns: UI frameworks (like JavaFX) or headless execution (e.g., microcontrollers/servers) decoupled from business logic. |
+
