@@ -12,7 +12,7 @@ Well, C++ adds a lot of low-level control and you could theoretically get your r
 Python sounds great as it is perfect for beginners. Sure, it definitely isn't as fast as many other languages, but it should be good, right? For the most part, yes actually. Although there is one issue: Python makes things *too* easy. This means that it gets incredibly difficult incredibly quick to write code that does specific complicated things.
 
 
-Java on the other hand gets a good median between the two languages. It is fast enough to run your robot, gives you enough control to get precise control over your robot, and it lets you do extremely specific complicated things easily. That last part will be explained in more detail in section 04, [chapter 02](<../04 Hardware and Linux/02 Memory Management in Java.md>) and [03](<../04 Hardware and Linux/03 The CPU and Cache.md>).
+Java on the other hand gets a good median between the two languages. It is fast enough to run your robot, gives you enough control to get precise control over your robot, and it lets you do extremely specific complicated things easily. That last part will be explained in more detail in section 04, [chapter 02](<02 Memory Management in Java.md>) and [03](<01 The CPU and Cache.md>).
 
 ## Packages
 

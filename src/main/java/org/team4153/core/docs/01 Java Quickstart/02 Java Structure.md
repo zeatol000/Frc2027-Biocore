@@ -374,7 +374,7 @@ The "default" label is for a value that didn't get a match. Though, this is usua
 Now, other than the labels, why is this different than an else-if chain? Switch statements are REALLY FAST.
 In an else-if chain, for every single instance, the computer must test the difference of the value from the condition. Then jump to the proper branch, whether or not it was true or false. These few operations are some of the slowest in a CPU.
 Switch statements instead use math to calculate the offset of the label, and one jump to that offset. This lets them "test" for infinite conditions in nanoseconds. 
-[03 The CPU and Cache](<../04 Hardware and Linux/03 The CPU and Cache.md>) has more details if you want to know more, but that is optional.
+[01 The CPU and Cache](<01 The CPU and Cache.md>) has more details if you want to know more, but that is optional.
 
 
 ## Enhanced Switch

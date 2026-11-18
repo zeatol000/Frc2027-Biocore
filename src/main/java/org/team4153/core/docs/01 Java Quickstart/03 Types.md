@@ -10,7 +10,7 @@ Chapter Sections:
 - [Var](#Var)
 
 ---
-In chapter 1, we mentioned mainly 3 types: `int`, `boolean`, and `String`. But what are they? How can we use them? Are there more?
+In chapter 2, we mentioned mainly 3 types: `int`, `boolean`, and `String`. But what are they? How can we use them? Are there more?
 
 ## What is a Type?
 Types are descriptions of data that explain both how we use them and what they are. Take `int` and `String` for example. An `int` is a numerical type of data that represents a whole number. A `String` however, represents any sequence of readable text.

@@ -1,4 +1,4 @@
-
+Chapter Sections:
 arrays:
 - the array type
 - creation: initializer
@@ -14,6 +14,7 @@ generics:
 - use (arraylist)
 - why do primitives not work in generics
 - arrays in generics
-- why you can't do instanceof on generics (erasure)
-- intersection and union
-- enhanced for in arraylist
+
+
+---
+We finally get to the last unexplained part of our main method: What on earth are the square brackets?

@@ -80,6 +80,14 @@ Thing t = new Thing(5);
 ```
 This will print "Hi!! 5" to the console, as a `Thing` object is being allocated, then the constructor is being ran.
 
+Another thing to note is that multiple constructors can be made, just like how we overload methods. If you need to run a constructor within another constructor, you do it by running the method `this` like so:
+```java
+public Thing(long n) {
+	this((int) n);
+}
+```
+The `this` method is actually a special keyword. It will be further explained on the section ["this"](#this).
+
 
 ## Fields
 We previously visited static fields in chapter [02 Java Structure](<./02 Java Structure.md>). These are variables that are always accessible.

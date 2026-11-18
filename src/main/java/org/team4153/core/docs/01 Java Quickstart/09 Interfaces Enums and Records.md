@@ -1,4 +1,4 @@
-
+Chapter Sections:
 all:
 - glorified classes.
 
@@ -28,3 +28,7 @@ records:
 - pattern matching intro
 - java.lang.Record
 - why the JVM loves these
+
+
+---
+This chapter talks about interfaces, enums, and records. Spoiler alert: all of them are just classes.
